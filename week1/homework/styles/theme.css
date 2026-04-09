@@ -4,7 +4,11 @@
     --color-secondary: #C3CC9B;
     --color-accent: #E4DFB5;
     --color-bg: #FBE8CE;
-    --color-text: #3E2C23;
+    --color-brown: #3E2C23;
+    --color-white: #FFF;
+    --color-like: #FC4C4E;
+    --color-shadow: rgba(0, 0, 0, 0.1);
+    --color-shadow-bold: rgba(0, 0, 0, 0.3);
 
     /* font weight */
     --weight-thin:100;
