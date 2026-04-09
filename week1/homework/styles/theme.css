@@ -1,3 +1,18 @@
-:root {
-    --light-green: rgb(199,246,182);
+:root{
+    /* color */
+    --color-primary: #9AB17A;
+    --color-secondary: #C3CC9B;
+    --color-accent: #E4DFB5;
+    --color-bg: #FBE8CE;
+    --color-text: #3E2C23;
+
+    /* font weight */
+    --weight-thin:100;
+    --weight-light:300;
+    --weight-regular:400;
+    --weight-medium:500;
+    --weight-semibold:600;
+    --weight-bold:700;
+    --weight-extrabold:800;
+    --weight-black:900;
 }
