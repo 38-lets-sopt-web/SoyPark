@@ -293,3 +293,20 @@ section > h4 {
 .btn.dislike:hover {
     color: var(--color-primary);
 }
+
+/* 웹왔니 */
+#to-web p {
+    font-size: 1.5rem;
+    font-weight: var(--weight-semibold);
+    margin-left: 1rem;
+}
+
+#to-web p::before {
+    content: "💥";
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background: var(--color-brown);
+}
