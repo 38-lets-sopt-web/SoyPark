@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html,
@@ -28,7 +30,9 @@ code,
 del,
 dfn,
 em,
-img,
+img{
+  cursor: pointer;
+}
 ins,
 kbd,
 q,
@@ -108,7 +112,10 @@ section {
   display: block;
 }
 body {
+  -ms-overflow-style: none;
   line-height: 1;
+  margin: 0;
+  padding: 0;
 }
 ol,
 ul {
@@ -146,4 +153,8 @@ button {
   outline: none;
   background-color: inherit;
   cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
