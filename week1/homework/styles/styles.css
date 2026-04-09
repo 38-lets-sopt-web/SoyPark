@@ -310,3 +310,16 @@ hr {
     height: 2px;
     background: var(--color-brown);
 }
+
+footer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 10rem;
+    background-color: var(--color-accent);
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    font-weight: var(--weight-semibold);
+    margin-top: 2rem;
+}
