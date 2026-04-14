@@ -194,7 +194,7 @@ section > h3 {
     scroll-snap-type: x mandatory; 
 
     /* infinite banner ver. */
-    /* animation: scroll 15s linear infinite; */
+    animation: scroll 15s linear infinite;
 
     &:hover{
         animation-play-state: paused;
@@ -227,8 +227,8 @@ section > h3 {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-100%);
-        /* transform: translate3d(-100%, 0, 0); */
+        /* transform: translateX(-100%); */
+        transform: translate3d(-100%, 0, 0);
     }
 }
 
