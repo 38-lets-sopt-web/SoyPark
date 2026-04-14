@@ -123,12 +123,12 @@ section {
     overflow: hidden;
 }
 
-section > h1 {
+section > h2 {
     font-size: 2rem;
     font-weight: var(--weight-bold);
 }
 
-section > h4 {
+section > h3 {
     font-size: 1.4rem;
     font-weight: var(--weight-medium);
 }
