@@ -20,18 +20,5 @@
     --weight-semibold:600;
     --weight-bold:700;
     --weight-extrabold:800;
-    --weight-black:900;
-
-    /* font size */
-    --title-24: 2.4rem;  
-    --title-20: 2rem;
-    --title-18: 1.8rem; 
-    --title-16: 1.6rem; 
-    --title-15: 1.5rem; 
-
-    --body-14: 1.4rem;
-    --body-13: 1.3rem; 
-    
-    --caption-12: 12rem;  
-    --caption-11: 1.1rem;     
+    --weight-black:900; 
 }
