@@ -39,11 +39,11 @@
     grid-area: d; 
 }
 
-.btn-apply { 
+#btn-apply { 
     grid-area: e; 
 }
 
-.btn-reset { 
+#btn-reset { 
     grid-area: f; 
 }
 
