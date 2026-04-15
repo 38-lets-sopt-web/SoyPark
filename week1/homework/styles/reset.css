@@ -30,9 +30,7 @@ code,
 del,
 dfn,
 em,
-img{
-  cursor: pointer;
-}
+img,
 ins,
 kbd,
 q,
@@ -157,4 +155,8 @@ button {
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+img {
+  cursor: pointer;
 }
