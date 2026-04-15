@@ -45,7 +45,6 @@
     vertical-align: middle;
 }
 
-
 #budget-list-body tr:hover {
     background-color: var(--color-lightgray);
 }
