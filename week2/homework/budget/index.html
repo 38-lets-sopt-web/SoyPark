@@ -9,7 +9,7 @@
 <body>
     <!--헤더-->
     <header class="header-container">
-        <p class="reset-icn">💸</p>
+        <button type="button" id="reload-icn">💸</button>
         <h1>소이의 가계부</h1>
         <p>SOPT 38th WEB</p>
     </header>
@@ -29,7 +29,7 @@
                 <div class="filter-item filter-type">
                     <label for="filter-type">유형</label>
                     <div class="custom-select">
-                        <select id="filter-type">
+                        <select id="filter-type" name="type">
                             <option value="all">전체</option>
                         </select>
                     </div>
@@ -39,7 +39,7 @@
                 <div class="filter-item filter-category">
                     <label for="filter-category">카테고리</label>
                     <div class="custom-select">
-                        <select id="filter-category">
+                        <select id="filter-category" name="category">
                             <option value="all">전체</option>
                         </select>
                     </div>
@@ -49,19 +49,51 @@
                 <div class="filter-item filter-payment">
                     <label for="filter-payment">결제수단</label>
                     <div class="custom-select">
-                        <select id="filter-payment">
+                        <select id="filter-payment" name="payment">
                             <option value="all">전체</option>
                         </select>
                     </div>
                 </div>
 
                 <!-- 버튼 -->
-                <button type="submit" class="btn-apply">적용</button>
-                <button type="button" class="btn-reset">초기화</button>
+                <button type="submit" id="btn-apply">적용</button>
+                <button type="button" id="btn-reset">초기화</button>
             </form>
         </section>
 
+        <!--리스트 섹션-->
+        <section class="list-section">
+            <!--리스트 상단-->
+            <div class="list-top-container">
+                <div class="custom-select sort-select">
+                    <select id="sort-order">
+                        <option value="desc">날짜 내림차순</option>
+                        <option value="asc">날짜 오름차순</option>
+                    </select>
+                    <span class="select-icon"></span>
+                </div>
+                <div class="list-btn-container">
+                    <button type="button" id="btn-delete">선택 삭제</button>
+                    <button type="button" id="btn-add">추가</button>
+                </div>
+            </div>
 
+            <!--리스트-->
+            <table class="budget-table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="check-all"></th>
+                        <th>제목</th>
+                        <th>금액</th>
+                        <th>날짜</th>
+                        <th>카테고리</th>
+                        <th>결제수단</th>
+                    </tr>
+                </thead>
+                <tbody id="budget-list-body">
+                </tbody>
+            </table>
+        </section>
     </main>
 
 
