@@ -1,0 +1,55 @@
+/* main */
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem;
+    width: 100%;
+}
+
+/* section */
+section {
+    background-color: var(--color-white);
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+/* button */
+section button {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    padding: 1rem;
+    border-radius: 0.8rem;
+    font-weight: var(--weight-bold);
+    height: 3.5rem;
+}
+
+/* dropdown */
+.custom-select {
+    flex: 1;
+    position: relative;
+    width: 100%;
+}
+
+.custom-select select {
+    width: 100%;
+    height: 3rem;
+    padding-left: 1rem;
+    
+    border: 1px solid var(--color-border-gray); 
+    border-radius: 0.4rem;
+    
+    -webkit-appearance: none;
+    appearance: none;
+
+    background-image: url('../svgs/ic_arrow.svg'); 
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px;
+
+    outline: none;
+    cursor: pointer;
+}
