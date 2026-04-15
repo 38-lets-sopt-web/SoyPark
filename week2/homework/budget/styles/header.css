@@ -1,10 +1,10 @@
-/* header */
 .header-container {
     position: sticky;
     top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1rem;
     background-color: var(--color-primary);
     z-index: 5;
     width: 100%;
@@ -12,7 +12,7 @@
 }
 
 .header-container * {
-    font-size: var(--title-15);
+    font-size: 1.5rem;
     color: var(--color-white);
 }
 
