@@ -6,14 +6,14 @@ const closeAddBtn = document.querySelector('.btn-close');
 
 // 열기
 openAddBtn.addEventListener('click', () => {
-    addModal.classList.remove('hidden');
+    addModal.showModal();
 });
 
 openDetailBtn.addEventListener('click', () => {
-    detailModal.classList.remove('hidden');
+    detailModal.showModal();
 });
 
 // 닫기
 closeAddBtn.addEventListener('click', () => {
-    addModal.classList.add('hidden');
+    addModal.close();
 });

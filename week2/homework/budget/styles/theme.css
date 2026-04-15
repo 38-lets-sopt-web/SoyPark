@@ -9,6 +9,7 @@
     --color-red: #FF3737;
     --color-shadow: rgba(0, 0, 0, 0.1);
     --color-shadow-bold: rgba(0, 0, 0, 0.3);
+    --color-backdrop: rgba(0, 0, 0, 0.5);
     --color-border-gray: #ccc;
 
     /* font weight */
