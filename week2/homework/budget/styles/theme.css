@@ -11,6 +11,7 @@
     --color-red: #FF3737;
     --color-shadow: rgba(0, 0, 0, 0.1);
     --color-shadow-bold: rgba(0, 0, 0, 0.3);
+    --color-border-gray: #ccc;
 
     /* font weight */
     --weight-thin:100;
