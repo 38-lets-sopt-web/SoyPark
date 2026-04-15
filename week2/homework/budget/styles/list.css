@@ -1,0 +1,67 @@
+
+.list-top-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.sort-select {
+    width: 12rem;
+    flex: none;
+}
+
+
+/* 테이블 */
+.budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.budget-table thead tr {
+    background-color: var(--color-light-accent);
+    border-top: 1px solid var(--color-border-gray);
+    border-bottom: 1px solid var(--color-border-gray);
+}
+
+.budget-table th {
+    padding: 1.2rem 0;
+    font-size: 1.4rem;
+    font-weight: var(--weight-bold);
+}
+
+.budget-table td {
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--color-border-gray); 
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+
+#budget-list-body tr:hover {
+    background-color: var(--color-lightgray);
+}
+
+.income {
+    color: var(--color-blue);
+    font-weight: var(--weight-bold);
+}
+
+.expense {
+    color: var(--color-red);
+    font-weight: var(--weight-bold);
+}
+
+/* 체크박스 열 너비 고정 */
+.budget-table th:first-child,
+.budget-table td:first-child {
+    width: 3rem;
+}
