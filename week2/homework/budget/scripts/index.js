@@ -1,9 +1,8 @@
-import { initSelectOptions } from "./init.js";
-import "./main.js";
+import "./init.js";
+import "./header.js";
 import "./modal.js";
-import { getExpenseData, renderAllItems } from "./list.js";
+import { renderAllItems } from "./list.js";
+import { getStorageData } from "./storage.js";
 
-initSelectOptions();
-
-const currentData = getExpenseData();
-renderAllItems(currentData);
+const data = getStorageData();
+renderAllItems(data);
