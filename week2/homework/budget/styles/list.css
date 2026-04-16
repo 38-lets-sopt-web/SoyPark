@@ -41,7 +41,8 @@
 .budget-table td {
     padding: 1.2rem 0;
     border-bottom: 1px solid var(--color-border-gray); 
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-weight: var(--weight-medium);
     vertical-align: middle;
 }
 
@@ -63,4 +64,13 @@
 .budget-table th:first-child,
 .budget-table td:first-child {
     width: 3rem;
+}
+
+.list-title {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.list-title:hover {
+    font-weight: var(--weight-bold);
 }
