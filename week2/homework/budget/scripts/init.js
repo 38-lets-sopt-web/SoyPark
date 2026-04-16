@@ -1,5 +1,5 @@
 // 템플릿 초기화 함수
-export function initSelectOptions() {
+export function fillSelectOptions() {
     const templateSelects = document.querySelectorAll('select[data-options-template]');
     templateSelects.forEach(select => {
         const templateId = select.getAttribute('data-options-template');
@@ -9,3 +9,5 @@ export function initSelectOptions() {
         }
     });
 }
+
+fillSelectOptions();
