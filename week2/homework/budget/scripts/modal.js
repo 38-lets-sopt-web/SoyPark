@@ -25,6 +25,14 @@ document.querySelectorAll('.btn-close').forEach(btn => {
     btn.addEventListener('click', () => btn.closest('dialog').close());
 });
 
+document.querySelectorAll('dialog').forEach(backdrop => {
+    backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) { // 클릭 영역이 backdrop인지 확인해서 이벤트 버블링 차단
+            backdrop.close();
+        }
+    });
+});
+
 
 /* Modal - form */
 const handleSubmit = (e) => {
