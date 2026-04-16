@@ -39,7 +39,7 @@
                 <div class="filter-item filter-category">
                     <label for="filter-category">카테고리</label>
                     <div class="custom-select">
-                        <select id="filter-category" name="category">
+                        <select id="filter-category" data-options-template="category-options-template">
                             <option value="all">전체</option>
                         </select>
                     </div>
@@ -49,13 +49,13 @@
                 <div class="filter-item filter-payment">
                     <label for="filter-payment">결제수단</label>
                     <div class="custom-select">
-                        <select id="filter-payment" name="payment">
+                        <select id="filter-payment" data-options-template="payment-options-template">
                             <option value="all">전체</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- 버튼 -->
+                <!-- 적용/초기화 버튼 -->
                 <button type="submit" id="btn-apply">적용</button>
                 <button type="button" id="btn-reset">초기화</button>
             </form>
@@ -72,9 +72,10 @@
                     </select>
                     <span class="select-icon"></span>
                 </div>
+            <!-- 추가/삭제 버튼 -->
                 <div class="list-btn-container">
                     <button type="button" id="btn-delete">선택 삭제</button>
-                    <button type="button" id="add-btn">추가</button>
+                    <button type="button" id="add-btn" data-target="add-modal">추가</button>
                 </div>
             </div>
 
@@ -83,11 +84,11 @@
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="check-all"></th>
-                        <th>제목</th>
-                        <th>금액</th>
-                        <th>날짜</th>
-                        <th>카테고리</th>
-                        <th>결제수단</th>
+                        <th class="title">제목</th>
+                        <th class="amount">금액</th>
+                        <th class="date">날짜</th>
+                        <th class="category">카테고리</th>
+                        <th class="payment">결제수단</th>
                     </tr>
                 </thead>
                 <tbody id="budget-list-body">
@@ -95,8 +96,6 @@
             </table>
         </section>
     </main>
-
-    <button type="button" id="detail-btn">상세 모달 테스트</button>
 
     <!--내역 추가 모달-->
     <dialog id="add-modal" class="modal-overlay">
@@ -116,7 +115,10 @@
                     <div class="input-group">
                         <label>유형</label>
                         <div class="custom-select select">
-                            <select><option>지출 (-)</option></select>
+                            <select id="add-price-type">
+                                <option value="minus">지출 (-)</option>
+                                <option value="plus">수익 (+)</option>
+                            </select>
                         </div>
                     </div>
                     <div class="input-group">
@@ -134,10 +136,8 @@
                     <div class="input-group">
                         <label>카테고리</label>
                         <div class="custom-select select">
-                            <select>
+                            <select id="add-category" data-options-template="category-options-template">
                                 <option value="" disabled selected>선택</option>
-                                <option>식비</option>
-                                <option>쇼핑</option>
                             </select>
                         </div>
                     </div>
@@ -145,10 +145,8 @@
                     <div class="input-group">
                         <label>결제수단</label>
                         <div class="custom-select select">
-                            <select>
+                            <select id="add-payment" data-options-template="payment-options-template">
                                 <option value="" disabled selected>선택</option>
-                                <option>현금</option>
-                                <option>신용카드</option>
                             </select>
                         </div>
                     </div>
@@ -175,6 +173,32 @@
         </div>
     </dialog>
 
+
+    <!-- 템플릿 -->
+    <template id="budget-row-template">
+        <tr>
+            <td><input type="checkbox" class="list-check"></td>
+            <td class="list-title"></td> 
+            <td class="list-amount"></td>
+            <td class="list-date"></td>
+            <td class="list-category"></td>
+            <td class="list-payment"></td>
+        </tr>
+    </template>
+
+    <template id="category-options-template">
+        <option value="식비">식비</option>
+        <option value="쇼핑">쇼핑</option>
+        <option value="문화">문화</option>
+        <option value="교통">교통</option>
+        <option value="생활">생활</option>
+        <option value="기타">기타</option>
+    </template>
+
+    <template id="payment-options-template">
+        <option value="현금">현금</option>
+        <option value="카드">신용카드</option>
+    </template>
     
     <script type="module" src="./scripts/index.js"></script>
 </body>
