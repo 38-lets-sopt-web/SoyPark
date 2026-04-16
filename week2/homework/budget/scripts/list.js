@@ -1,14 +1,27 @@
-import { expenses } from "../mockData.js";
 import { formatAmount, getAmountClass, fillDetailModal } from "./common.js";
+import { deleteFromStorage, getStorageData } from "./storage.js";
 
+const deleteBtn = document.getElementById('btn-delete');
 
-if (!localStorage.getItem("expenseData")) {
-    localStorage.setItem("expenseData", JSON.stringify(expenses));
+if (deleteBtn) {
+    deleteBtn.addEventListener('click', () => {
+        const checkedInputs = document.querySelectorAll('.list-check:checked');
+
+        if (checkedInputs.length === 0){
+            alert("삭제할 항목을 선택해주세요.");
+            return;
+        }
+
+        const idsToDelete = Array.from(checkedInputs).map(input => input.dataset.id);
+
+        deleteFromStorage(idsToDelete);
+
+        // 화면 업데이트
+        const updatedData = getStorageData();
+        renderAllItems(updatedData);
+    })
 }
 
-export const getExpenseData = () => {
-    return JSON.parse(localStorage.getItem("expenseData"));
-};
 
 export const renderAllItems = (data) => {
     const listBody = document.querySelector('#budget-list-body');
@@ -32,6 +45,7 @@ export const renderItem = (item) => {
     const dateCell = rowClone.querySelector('.list-date');
     const categoryCell = rowClone.querySelector('.list-category');
     const paymentCell = rowClone.querySelector('.list-payment');
+    const checkbox = rowClone.querySelector('.list-check');
 
     // 텍스트 내용 채우기
     titleCell.textContent = item.title;
@@ -46,6 +60,10 @@ export const renderItem = (item) => {
         fillDetailModal(item);
         document.querySelector('#detail-modal').showModal();
     });
+
+    if (checkbox) {
+        checkbox.setAttribute('data-id', item.id);
+    }
 
     listBody.appendChild(rowClone);
 };

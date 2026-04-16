@@ -1,4 +1,5 @@
-import { formatAmount, getAmountClass, fillDetailModal } from "./common.js";
+import { renderItem } from "./list.js";
+import { saveToStorage } from "./storage.js";
 
 const addModal = document.getElementById('add-modal');
 const addForm = document.querySelector('.modal-form');
@@ -61,7 +62,7 @@ const handleSubmit = (e) => {
     }
 
     renderItem(newItem);
-    // todo: 로컬 스토리지 저장 함수 추가 
+    saveToStorage(newItem);
 
     // 폼 초기화
     addForm.reset();
@@ -73,33 +74,3 @@ const handleSubmit = (e) => {
 if (addForm) {
     addForm.addEventListener('submit', handleSubmit);
 }
-
-export const renderItem = (item) => {
-    const listBody = document.querySelector('#budget-list-body');
-    const template = document.querySelector('#budget-row-template');
-    
-    // 템플릿 복사
-    const rowClone = template.content.cloneNode(true);
-
-    const titleCell = rowClone.querySelector('.list-title');
-    const amountCell = rowClone.querySelector('.list-amount');
-    const dateCell = rowClone.querySelector('.list-date');
-    const categoryCell = rowClone.querySelector('.list-category');
-    const paymentCell = rowClone.querySelector('.list-payment');
-
-    titleCell.textContent = item.title;
-    dateCell.textContent = item.date;
-    categoryCell.textContent = item.category;
-    paymentCell.textContent = item.payment;
-
-    amountCell.textContent = formatAmount(item.amount);
-    amountCell.classList.add(getAmountClass(item.amount));
-
-    // 상세 모달 연결
-    titleCell.addEventListener('click', () => {
-        fillDetailModal(item);
-        document.querySelector('#detail-modal').showModal();
-    });
-
-    listBody.appendChild(rowClone);
-};
