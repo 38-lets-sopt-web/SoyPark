@@ -1,7 +1,7 @@
 import { getStorageData } from "./storage.js";
 import { renderAllItems } from "./list.js";
 
-const applyFilter = () => {
+const searchFilter = () => {
     const allData = getStorageData();
     
     // 현재 입력된 필터값
@@ -36,7 +36,7 @@ const applyFilter = () => {
 const applyBtn = document.getElementById('btn-apply');
 applyBtn.addEventListener('click', (e) => {
     e.preventDefault(); // 폼 제출 시 새로고침 방지
-    applyFilter();
+    searchFilter();
 });
 
 // 초기화 버튼 
