@@ -44,6 +44,7 @@ const checkAllItems = () => {
 export const renderAllItems = (data) => {
     const listBody = document.querySelector('#budget-list-body');
     const checkAll = document.querySelector('#check-all');
+    const tr = document.createElement("tr");
     if (!listBody) return;
 
     listBody.innerHTML = '';
@@ -51,6 +52,22 @@ export const renderAllItems = (data) => {
 
     // 행을 생성
     data.forEach(item => renderItem(item));
+
+    // 총 금액 계산
+    const total = data.reduce((acc, cur) => acc + Number(cur.amount), 0);
+
+    tr.style.backgroundColor = 'var(--color-light-accent)';
+    tr.innerHTML = `
+        <td></td>
+        <td>합계</td>
+        <td colspan="1"></td>
+        <td class="${getAmountClass(total)}">
+            ${formatAmount(total)}
+        </td>
+        <td colspan="2"></td>
+    `;
+
+    listBody.appendChild(tr);
 };
 
 export const renderItem = (item) => {
