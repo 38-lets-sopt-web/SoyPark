@@ -29,7 +29,7 @@
                 <div class="filter-item filter-type">
                     <label for="filter-type">유형</label>
                     <div class="custom-select">
-                        <select id="filter-type" name="type">
+                        <select id="filter-type" name="type" data-options-template="priceType-options-template">
                             <option value="all">전체</option>
                         </select>
                     </div>
@@ -115,9 +115,8 @@
                     <div class="input-group">
                         <label>유형</label>
                         <div class="custom-select select">
-                            <select id="add-price-type">
-                                <option value="minus">지출 (-)</option>
-                                <option value="plus">수익 (+)</option>
+                            <select id="add-price-type" data-options-template="priceType-options-template">
+                                <option value="">선택</option>
                             </select>
                         </div>
                     </div>
@@ -186,6 +185,11 @@
         </tr>
     </template>
 
+    <template id="priceType-options-template">
+        <option value="지출">지출</option>
+        <option value="수익">수익</option>
+    </template>
+
     <template id="category-options-template">
         <option value="식비">식비</option>
         <option value="쇼핑">쇼핑</option>
@@ -197,7 +201,7 @@
 
     <template id="payment-options-template">
         <option value="현금">현금</option>
-        <option value="카드">신용카드</option>
+        <option value="카드">카드</option>
     </template>
     
     <script type="module" src="./scripts/index.js"></script>
