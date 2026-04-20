@@ -1,25 +1,29 @@
 import { formatAmount, getAmountClass, fillDetailModal } from "./utils.js";
 import { deleteFromStorage, getStorageData } from "./storage.js";
 
+
+export const handleDelete = () => {
+    const checkedInputs = document.querySelectorAll('.list-check:checked');
+    
+    if (checkedInputs.length === 0){
+        alert("삭제할 항목을 선택해주세요.");
+        return;
+    }
+
+    const idsToDelete = Array.from(checkedInputs).map(input => input.dataset.id);
+
+    deleteFromStorage(idsToDelete);
+
+    // 화면 업데이트
+    const updatedData = getStorageData();
+    renderAllItems(updatedData);
+}
+
+
 const deleteBtn = document.getElementById('btn-delete');
 
 if (deleteBtn) {
-    deleteBtn.addEventListener('click', () => {
-        const checkedInputs = document.querySelectorAll('.list-check:checked');
-
-        if (checkedInputs.length === 0){
-            alert("삭제할 항목을 선택해주세요.");
-            return;
-        }
-
-        const idsToDelete = Array.from(checkedInputs).map(input => input.dataset.id);
-
-        deleteFromStorage(idsToDelete);
-
-        // 화면 업데이트
-        const updatedData = getStorageData();
-        renderAllItems(updatedData);
-    })
+    deleteBtn.addEventListener('click', handleDelete);
 }
 
 // 전체 선택
