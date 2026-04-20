@@ -22,17 +22,35 @@ if (deleteBtn) {
     })
 }
 
+// 전체 선택
+const checkAllItems = () => {
+    const checkAll = document.querySelector('#check-all');
+
+    if (checkAll) {
+        checkAll.addEventListener('change', (e) => {
+            const isChecked = e.target.checked;
+            const allCheckboxes = document.querySelectorAll('.list-check');
+            
+            // 화면에 있는 모든 개별 체크박스 상태를 상단 버튼과 동기화
+            allCheckboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+        });
+    }
+}
+
+
 
 export const renderAllItems = (data) => {
     const listBody = document.querySelector('#budget-list-body');
+    const checkAll = document.querySelector('#check-all');
     if (!listBody) return;
 
     listBody.innerHTML = '';
+    if (checkAll) checkAll.checked = false;
 
     // 행을 생성
-    data.forEach(item => {
-        renderItem(item);
-    });
+    data.forEach(item => renderItem(item));
 };
 
 export const renderItem = (item) => {
@@ -63,6 +81,8 @@ export const renderItem = (item) => {
 
     if (checkbox) {
         checkbox.setAttribute('data-id', item.id);
+
+        checkAllItems();
     }
 
     listBody.appendChild(rowClone);
