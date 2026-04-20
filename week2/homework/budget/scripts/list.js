@@ -1,4 +1,4 @@
-import { formatAmount, getAmountClass, fillDetailModal } from "./common.js";
+import { formatAmount, getAmountClass, fillDetailModal } from "./utils.js";
 import { deleteFromStorage, getStorageData } from "./storage.js";
 
 const deleteBtn = document.getElementById('btn-delete');
