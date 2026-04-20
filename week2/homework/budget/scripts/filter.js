@@ -1,6 +1,7 @@
 import { getStorageData } from "./storage.js";
 import { renderAllItems } from "./list.js";
 
+// 검색 필터 및 정렬
 const searchFilter = () => {
     const allData = getStorageData();
     
@@ -9,6 +10,9 @@ const searchFilter = () => {
     const typeValue = document.getElementById('filter-type').value;
     const categoryValue = document.getElementById('filter-category').value;
     const paymentValue = document.getElementById('filter-payment').value;
+
+    // 정렬
+    const sortOrder = document.getElementById('sort-order').value;
 
     // 필터링
     const filteredData = allData.filter(item => {
@@ -29,6 +33,17 @@ const searchFilter = () => {
         return matchName && matchType && matchCategory && matchPayment;
     });
 
+    filteredData.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+
+        if (sortOrder === 'asc') {
+            return dateA - dateB; // 오름차순
+        } else {
+            return dateB - dateA; // 내림차순
+        }
+    });
+
     renderAllItems(filteredData);
 };
 
@@ -45,3 +60,12 @@ resetBtn.addEventListener('click', () => {
     document.querySelector('.filter-form').reset(); // 폼 비우기
     renderAllItems(getStorageData()); 
 });
+
+
+// 정렬 바로 반영
+const sortSelect = document.getElementById('sort-order');
+if (sortSelect) {
+    sortSelect.addEventListener('change', () => {
+        searchFilter(); 
+    });
+}
