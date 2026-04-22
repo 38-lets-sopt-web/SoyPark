@@ -34,6 +34,7 @@ const searchFilter = () => {
         return matchName && matchType && matchCategory && matchPayment;
     });
 
+    // 날짜 기준 정렬 
     filteredData.sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);

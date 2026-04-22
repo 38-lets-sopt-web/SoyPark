@@ -51,10 +51,11 @@ export const renderAllItems = (data) => {
     const tr = document.createElement("tr");
     if (!listBody) return;
 
+    // 기존 목록, 전체 체크박스 초기화
     listBody.innerHTML = '';
     if (checkAll) checkAll.checked = false;
 
-    // 행을 생성
+    // 저장된 모든 항목을 한 줄씩 리렌더링
     data.forEach(item => renderItem(item));
 
     // 총 금액 계산
@@ -94,6 +95,7 @@ export const renderItem = (item) => {
     amountCell.textContent = formatAmount(item.amount);
     amountCell.classList.add(getAmountClass(item.amount));
 
+    // 제목을 눌러 상세모달 열기
     titleCell.addEventListener('click', () => {
         fillDetailModal(item);
         elements.modal.detail.showModal();
