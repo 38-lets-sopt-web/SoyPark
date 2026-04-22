@@ -1,4 +1,3 @@
-import "./init.js";
 import "./header.js";
 import "./modal.js";
 import { renderAllItems } from "./list.js";

@@ -1,8 +1,8 @@
+import { elements } from "./domElement.js";
 import { renderItem } from "./list.js";
-import { saveToStorage } from "./storage.js";
+import { getStorageData, saveToStorage } from "./storage.js";
 
-const addModal = document.getElementById('add-modal');
-const addForm = document.querySelector('.modal-form');
+const addForm = elements.form.add;
 
 // 모달 열기
 const openModal = (modalId) => {
@@ -12,9 +12,7 @@ const openModal = (modalId) => {
     }
 };
 
-const modalOpenButtons = document.querySelectorAll('[data-target]');
-
-modalOpenButtons.forEach(button => {
+elements.modal.openButtons.forEach(button => {
     button.addEventListener('click', () => {
         const modalId = button.getAttribute('data-target');
         openModal(modalId);
@@ -22,12 +20,12 @@ modalOpenButtons.forEach(button => {
 });
 
 // 모달 닫기 (X 버튼)
-document.querySelectorAll('.btn-close').forEach(btn => {
+elements.modal.closeButton.forEach(btn => {
     btn.addEventListener('click', () => btn.closest('dialog').close());
 });
 
 // 모달 닫기 (백드롭)
-document.querySelectorAll('dialog').forEach(backdrop => {
+elements.modal.dialogs.forEach(backdrop => {
     backdrop.addEventListener('click', (e) => {
         if (e.target === backdrop) { // 클릭 영역이 backdrop인지 확인해서 이벤트 버블링 차단
             backdrop.close();
@@ -40,17 +38,17 @@ document.querySelectorAll('dialog').forEach(backdrop => {
 const handleSubmit = (e) => {
     e.preventDefault(); // 새로고침 방지
 
-    const amountInput = document.querySelector('input[type="number"]').value;
-    const type = document.getElementById('add-price-type').value;
+    const amountInput = elements.form.inputs.amount.value;
+    const type = elements.form.inputs.priceType.value;
 
     // 입력 데이터 객체 
     const newItem = {
         id: Date.now(),
-        title: document.querySelector('.input-group input[type="text"]').value,
-        amount: type === "minus" ? -Number(amountInput) : Number(amountInput),
-        date: document.querySelector('input[type="date"]').value,
-        category: document.getElementById('add-category').value,
-        payment: document.getElementById('add-payment').value,
+        title: elements.form.inputs.title.value,
+        amount: type === "지출" ? -Number(amountInput) : Number(amountInput),
+        date: elements.form.inputs.date.value,
+        category: elements.form.inputs.category.value,
+        payment: elements.form.inputs.payment.value,
     };
 
     // console.log(newItem);
@@ -61,14 +59,14 @@ const handleSubmit = (e) => {
         return;
     }
 
-    renderItem(newItem);
     saveToStorage(newItem);
+    renderItem(getStorageData());
 
     // 폼 초기화
     addForm.reset();
 
     // 모달 닫기
-    addModal.close();
+    elements.modal.add.close();
 }
 
 if (addForm) {
