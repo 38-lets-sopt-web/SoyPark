@@ -48,10 +48,10 @@ export const elements = {
     form: {
         add: document.querySelector('.modal-form'),
         inputs: {
-            amount: document.querySelector('.modal-form input[type="number"]'),
+            amount: document.getElementById('add-amount'),
             priceType: document.getElementById('add-price-type'),
-            title: document.querySelector('.modal-form .input-group input[type="text"]'),
-            date: document.querySelector('input[type="date"]'),
+            title: document.getElementById('add-title'),
+            date: document.getElementById('add-date'),
             category: document.getElementById('add-category'),
             payment: document.getElementById('add-payment'),
         },
