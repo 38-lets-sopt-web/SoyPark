@@ -1,0 +1,22 @@
+:root{
+    /* color */
+    --color-primary: #9AB17A;
+    --color-secondary: #C3CC9B;
+    --color-accent: #E4DFB5;
+    --color-bg: #FBE8CE;
+    --color-brown: #3E2C23;
+    --color-white: #FFF;
+    --color-like: #FC4C4E;
+    --color-shadow: rgba(0, 0, 0, 0.1);
+    --color-shadow-bold: rgba(0, 0, 0, 0.3);
+
+    /* font weight */
+    --weight-thin:100;
+    --weight-light:300;
+    --weight-regular:400;
+    --weight-medium:500;
+    --weight-semibold:600;
+    --weight-bold:700;
+    --weight-extrabold:800;
+    --weight-black:900;
+}
