@@ -49,19 +49,21 @@ const listBody = elements.list.body;
 
 export const renderAllItems = (data) => {
     const checkAll = elements.list.checkAll;
-    const tr = document.createElement("tr");
     if (!listBody) return;
 
-    // 기존 목록, 전체 체크박스 초기화
-    listBody.innerHTML = '';
+    // 기존 목록 초기화
+    const fragment = document.createDocumentFragment();
     if (checkAll) checkAll.checked = false;
 
-    // 저장된 모든 항목을 한 줄씩 리렌더링
-    data.forEach(item => renderItem(item));
+    // 저장된 모든 항목을 한 줄씩 렌더링
+    data.forEach(item => {
+        const rowClone = renderItem(item);
+        fragment.appendChild(rowClone);
+    });
 
     // 총 금액 계산
     const total = data.reduce((acc, cur) => acc + Number(cur.amount), 0);
-
+    const tr = document.createElement("tr");
     tr.style.backgroundColor = 'var(--color-light-accent)';
     tr.innerHTML = `
         <td></td>
@@ -72,8 +74,11 @@ export const renderAllItems = (data) => {
         </td>
         <td colspan="2"></td>
     `;
+    fragment.appendChild(tr);
 
-    listBody.appendChild(tr);
+    // 한 번에 DOM 업데이트
+    listBody.innerHTML = '';
+    listBody.appendChild(fragment);
 };
 
 export const renderItem = (item) => {
@@ -106,5 +111,5 @@ export const renderItem = (item) => {
         checkbox.setAttribute('data-id', item.id);
     }
 
-    listBody.appendChild(rowClone);
+    return rowClone; // rowClone 반환
 };
