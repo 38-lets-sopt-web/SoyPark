@@ -1,5 +1,6 @@
-// 헤더 - 좌측 아이콘 클릭시 새로고침
-const reloadIcon = document.getElementById('reload-icn');
-reloadIcon.addEventListener("click", (e) => {
-    location.reload(true);
+import { elements } from "./domElement.js";
+
+// 좌측 아이콘 클릭시 새로고침
+elements.header.reloadIcon.addEventListener("click", () => {
+    location.reload();
 });

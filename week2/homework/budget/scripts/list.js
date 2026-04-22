@@ -1,9 +1,10 @@
 import { formatAmount, getAmountClass, fillDetailModal } from "./utils.js";
 import { deleteFromStorage, getStorageData } from "./storage.js";
+import { elements, LIST_SELECTORS } from "./domElement.js";
 
 
 export const handleDelete = () => {
-    const checkedInputs = document.querySelectorAll('.list-check:checked');
+    const checkedInputs = elements.list.getCheckedCheckboxes;
     
     if (checkedInputs.length === 0){
         alert("삭제할 항목을 선택해주세요.");
@@ -20,7 +21,7 @@ export const handleDelete = () => {
 }
 
 
-const deleteBtn = document.getElementById('btn-delete');
+const deleteBtn = elements.list.deleteBtn;
 
 if (deleteBtn) {
     deleteBtn.addEventListener('click', handleDelete);
@@ -28,15 +29,14 @@ if (deleteBtn) {
 
 // 전체 선택
 const checkAllItems = () => {
-    const checkAll = document.querySelector('#check-all');
+    const checkAll = elements.list.checkAll;
 
     if (checkAll) {
         checkAll.addEventListener('change', (e) => {
             const isChecked = e.target.checked;
-            const allCheckboxes = document.querySelectorAll('.list-check');
-            
+
             // 화면에 있는 모든 개별 체크박스 상태를 상단 버튼과 동기화
-            allCheckboxes.forEach(checkbox => {
+            elements.list.getCheckboxes().forEach(checkbox => {
                 checkbox.checked = isChecked;
             });
         });
@@ -44,10 +44,10 @@ const checkAllItems = () => {
 }
 
 
+const listBody = elements.list.body;
 
 export const renderAllItems = (data) => {
-    const listBody = document.querySelector('#budget-list-body');
-    const checkAll = document.querySelector('#check-all');
+    const checkAll = elements.list.checkAll;
     const tr = document.createElement("tr");
     if (!listBody) return;
 
@@ -75,16 +75,15 @@ export const renderAllItems = (data) => {
 };
 
 export const renderItem = (item) => {
-    const listBody = document.querySelector('#budget-list-body');
-    const template = document.querySelector('#budget-row-template');
+    const template = elements.template.row;
     const rowClone = template.content.cloneNode(true);
 
-    const titleCell = rowClone.querySelector('.list-title');
-    const amountCell = rowClone.querySelector('.list-amount');
-    const dateCell = rowClone.querySelector('.list-date');
-    const categoryCell = rowClone.querySelector('.list-category');
-    const paymentCell = rowClone.querySelector('.list-payment');
-    const checkbox = rowClone.querySelector('.list-check');
+    const titleCell = rowClone.querySelector(LIST_SELECTORS.item.title);
+    const amountCell = rowClone.querySelector(LIST_SELECTORS.item.amount);
+    const dateCell = rowClone.querySelector(LIST_SELECTORS.item.date);
+    const categoryCell = rowClone.querySelector(LIST_SELECTORS.item.category);
+    const paymentCell = rowClone.querySelector(LIST_SELECTORS.item.payment);
+    const checkbox = rowClone.querySelector(LIST_SELECTORS.item.check);
 
     // 텍스트 내용 채우기
     titleCell.textContent = item.title;
@@ -97,7 +96,7 @@ export const renderItem = (item) => {
 
     titleCell.addEventListener('click', () => {
         fillDetailModal(item);
-        document.querySelector('#detail-modal').showModal();
+        elements.modal.detail.showModal();
     });
 
     if (checkbox) {

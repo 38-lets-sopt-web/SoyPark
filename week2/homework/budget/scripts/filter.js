@@ -1,18 +1,19 @@
 import { getStorageData } from "./storage.js";
 import { renderAllItems } from "./list.js";
+import { elements } from "./domElement.js";
 
 // 검색 필터 및 정렬
 const searchFilter = () => {
     const allData = getStorageData();
     
     // 현재 입력된 필터값
-    const nameValue = document.getElementById('filter-name').value;
-    const typeValue = document.getElementById('filter-type').value;
-    const categoryValue = document.getElementById('filter-category').value;
-    const paymentValue = document.getElementById('filter-payment').value;
+    const nameValue = elements.filter.name.value;
+    const typeValue = elements.filter.type.value;
+    const categoryValue = elements.filter.category.value;
+    const paymentValue = elements.filter.payment.value;
 
     // 정렬
-    const sortOrder = document.getElementById('sort-order').value;
+    const sortOrder = elements.filter.sort.value;
 
     // 필터링
     const filteredData = allData.filter(item => {
@@ -48,22 +49,20 @@ const searchFilter = () => {
 };
 
 // 적용 버튼
-const applyBtn = document.getElementById('btn-apply');
-applyBtn.addEventListener('click', (e) => {
+elements.filter.button.apply.addEventListener('click', (e) => {
     e.preventDefault(); // 폼 제출 시 새로고침 방지
     searchFilter();
 });
 
 // 초기화 버튼 
-const resetBtn = document.getElementById('btn-reset');
-resetBtn.addEventListener('click', () => {
+elements.filter.button.reset.addEventListener('click', () => {
     document.querySelector('.filter-form').reset(); // 폼 비우기
     renderAllItems(getStorageData()); 
 });
 
 
 // 정렬 바로 반영
-const sortSelect = document.getElementById('sort-order');
+const sortSelect = elements.filter.sort;
 if (sortSelect) {
     sortSelect.addEventListener('change', () => {
         searchFilter(); 

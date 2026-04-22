@@ -1,6 +1,21 @@
 /*
-list, modal에서 공통으로 쓰이는 로직
+list, modal에서 공통으로 쓰이는 로직 + 템플릿
 */
+
+import { elements } from "./domElement.js";
+
+// 템플릿 초기화 함수
+export function fillSelectOptions() {
+    elements.template.selects.forEach(select => {
+        const templateId = select.getAttribute('data-options-template');
+        const template = document.getElementById(templateId);
+        if (template) {
+            select.appendChild(template.content.cloneNode(true));
+        }
+    });
+}
+
+fillSelectOptions();
 
 // 금액 포맷팅 (부호, 콤마)
 export const formatAmount = (amount) => {
@@ -17,10 +32,11 @@ export const getAmountClass = (amount) => {
 
 // 상세 모달 데이터 채우기
 export const fillDetailModal = (item) => {
-    const detailModal = document.querySelector('#detail-modal');
+    const detailModal = elements.modal.detail.modal;
     if (!detailModal) return;
 
-    const values = detailModal.querySelectorAll('.detail-value');
+    const values = elements.modal.detail.values;
+    if (values.length === 0) return;
     
     values[0].textContent = item.title;
     values[1].textContent = formatAmount(item.amount);
