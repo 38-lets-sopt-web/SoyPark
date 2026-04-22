@@ -4,7 +4,7 @@ import { elements, LIST_SELECTORS } from "./domElement.js";
 
 
 export const handleDelete = () => {
-    const checkedInputs = elements.list.getCheckedCheckboxes;
+    const checkedInputs = elements.list.getCheckedCheckboxes();
     
     if (checkedInputs.length === 0){
         alert("삭제할 항목을 선택해주세요.");
