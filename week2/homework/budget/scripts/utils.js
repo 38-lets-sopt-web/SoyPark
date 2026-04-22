@@ -32,10 +32,10 @@ export const getAmountClass = (amount) => {
 
 // 상세 모달 데이터 채우기
 export const fillDetailModal = (item) => {
-    const detailModal = elements.modal.detail.modal;
+    const detailModal = elements.modal.detail;
     if (!detailModal) return;
 
-    const values = elements.modal.detail.values;
+    const values = elements.modal.detailValues;
     if (values.length === 0) return;
     
     values[0].textContent = item.title;
