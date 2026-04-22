@@ -51,8 +51,6 @@ const handleSubmit = (e) => {
         payment: elements.form.inputs.payment.value,
     };
 
-    // console.log(newItem);
-
     // 필드 확인 유효성 검사
     if (!newItem.title || !newItem.amount || !newItem.date) {
         alert("모든 내용을 입력해주세요!");
