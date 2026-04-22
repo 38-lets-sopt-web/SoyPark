@@ -31,18 +31,19 @@ if (deleteBtn) {
 const checkAllItems = () => {
     const checkAll = elements.list.checkAll;
 
-    if (checkAll) {
-        checkAll.addEventListener('change', (e) => {
-            const isChecked = e.target.checked;
+    if (!checkAll) return;
 
-            // 화면에 있는 모든 개별 체크박스 상태를 상단 버튼과 동기화
-            elements.list.getCheckboxes().forEach(checkbox => {
-                checkbox.checked = isChecked;
-            });
+    checkAll.addEventListener('change', (e) => {
+        const isChecked = e.target.checked;
+
+        // 화면에 있는 모든 개별 체크박스 상태를 전체 성택 상태와 동기화
+        elements.list.getCheckboxes().forEach(checkbox => {
+            checkbox.checked = isChecked;
         });
-    }
+    });
 }
 
+checkAllItems();
 
 const listBody = elements.list.body;
 
@@ -103,8 +104,6 @@ export const renderItem = (item) => {
 
     if (checkbox) {
         checkbox.setAttribute('data-id', item.id);
-
-        checkAllItems();
     }
 
     listBody.appendChild(rowClone);
