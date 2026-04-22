@@ -1,5 +1,5 @@
 import { elements } from "./domElement.js";
-import { renderItem } from "./list.js";
+import { renderAllItems } from "./list.js";
 import { getStorageData, saveToStorage } from "./storage.js";
 
 const addForm = elements.form.add;
@@ -58,7 +58,7 @@ const handleSubmit = (e) => {
     }
 
     saveToStorage(newItem);
-    renderItem(getStorageData());
+    renderAllItems(getStorageData());
 
     // 폼 초기화
     addForm.reset();
