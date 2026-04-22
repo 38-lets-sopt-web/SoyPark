@@ -11,7 +11,7 @@ export const initStorage = () => {
 
 // 데이터 불러오기
 export const getStorageData = () => {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 };
 
 // 데이터 추가 저장
