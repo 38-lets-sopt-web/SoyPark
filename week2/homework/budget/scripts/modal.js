@@ -52,7 +52,12 @@ const handleSubmit = (e) => {
     };
 
     // 필드 확인 유효성 검사
-    if (!newItem.title || !newItem.amount || !newItem.date) {
+    if (!newItem.title || 
+        !newItem.amount || 
+        !newItem.date || 
+        !newItem.payment ||
+        !newItem.category ||
+        !newItem.type) {
         alert("모든 내용을 입력해주세요!");
         return;
     }
