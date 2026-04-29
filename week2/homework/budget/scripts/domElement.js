@@ -30,6 +30,7 @@ export const elements = {
 
     list: {
         body: document.querySelector('#budget-list-body'),
+        tfoot: document.querySelector('#budget-list-foot'),
         checkAll: document.querySelector('#check-all'),
         deleteBtn: document.getElementById('btn-delete'),
         getCheckboxes: () => document.querySelectorAll('.list-check'),

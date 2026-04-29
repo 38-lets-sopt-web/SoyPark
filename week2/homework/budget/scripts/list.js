@@ -46,10 +46,11 @@ const checkAllItems = () => {
 checkAllItems();
 
 const listBody = elements.list.body;
+const listFoot = elements.list.tfoot;
 
 export const renderAllItems = (data) => {
     const checkAll = elements.list.checkAll;
-    if (!listBody) return;
+    if (!listBody || ! listFoot) return;
 
     // 기존 목록 초기화
     const fragment = document.createDocumentFragment();
@@ -63,18 +64,14 @@ export const renderAllItems = (data) => {
 
     // 총 금액 계산
     const total = data.reduce((acc, cur) => acc + Number(cur.amount), 0);
-    const tr = document.createElement("tr");
-    tr.style.backgroundColor = 'var(--color-light-accent)';
-    tr.innerHTML = `
-        <td></td>
-        <td>합계</td>
-        <td colspan="1"></td>
-        <td class="${getAmountClass(total)}">
-            ${formatAmount(total)}
-        </td>
-        <td colspan="2"></td>
+    listFoot.innerHTML = `
+        <tr style="background-color: var(--color-light-accent);">
+            <td></td>
+            <td>합계</td>
+            <td colspan="3" class="${getAmountClass(total)}">${formatAmount(total)}</td>
+            <td colspan="3"></td>
+        </tr>
     `;
-    fragment.appendChild(tr);
 
     // 한 번에 DOM 업데이트
     listBody.innerHTML = '';
