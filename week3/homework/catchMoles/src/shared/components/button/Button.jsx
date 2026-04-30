@@ -19,7 +19,7 @@ const Button = ({
 
   const currentColor = isActive ? colorStyles[color].active : colorStyles[color].inactive;
 
-  const baseStyles = "items-center rounded-full px-2 py-1 text-sm border-2";
+  const baseStyles = "items-center rounded-full px-2 py-1 text-sm border-2 cursor-pointer";
 
   return (
     <button
