@@ -14,6 +14,9 @@ export const useGame = () => {
     const [failCount, setFailCount] = useState(0); 
     const [holeStates, setHoleStates] = useState(Array(GAME_SETTINGS.HOLE_COUNT).fill('empty')); // 구멍 이미지 상태
 
+    const [showModal, setShowModal] = useState(false);
+    const [resetTime, setResetTime] = useState(GAME_SETTINGS.RESET_TIME);
+    
     // 랜덤으로 졸린 강아지 노출
     const showDog = () => {
         const randomIndex = Math.floor(Math.random() * GAME_SETTINGS.HOLE_COUNT);
@@ -44,12 +47,35 @@ export const useGame = () => {
                     setIsPlaying(false);
                     setHoleStates(Array(GAME_SETTINGS.HOLE_COUNT).fill(HOLE_STATUS.EMPTY));
                     setGameMessage(GAME_MESSAGES.GAME_OVER);
+                    
+                    triggerModal();
+
+                    setScore(0);
+                    setSuccessCount(0);
+                    setFailCount(0);
                     return 0;
                 }
                 return now - 1
             })
         }, 1000);
     }
+
+    // 게임 종료 모달 
+    const triggerModal = () => {
+        setShowModal(true);
+        setResetTime(GAME_SETTINGS.RESET_TIME);
+
+        const modalTimer = setInterval(() => {
+            setTimeout((prev) => {
+                if (prev <= 1) {
+                    clearInterval(modalTimer);
+                    setShowModal(false);
+                    return 0;
+                }
+                return prev - 1;
+            })
+        }, 1000);
+    };
 
     const handleHoleClick = (index) => {
         if (!isPlaying) return;
@@ -84,6 +110,8 @@ export const useGame = () => {
         successCount,
         failCount,
         holeStates,
+        showModal,
+        resetTime,
         gameStart,
         handleHoleClick,
     }

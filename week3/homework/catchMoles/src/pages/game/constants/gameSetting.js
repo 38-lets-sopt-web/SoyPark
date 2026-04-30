@@ -3,6 +3,7 @@ export const GAME_SETTINGS = {
   HOLE_COUNT: 4, // 2x2 보드
   DOG_SHOW_DURATION: 1000, 
   SUCCESS_DURATION: 700,
+  RESET_TIME: 5,
 };
 
 export const HOLE_STATUS = {
