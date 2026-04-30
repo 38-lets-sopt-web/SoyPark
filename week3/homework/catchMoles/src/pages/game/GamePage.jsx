@@ -22,6 +22,7 @@ const GamePage = () => {
         resetTime,
         handleHoleClick,
         gameStart,
+        gameStop,
     } = useGame();
 
     return (
@@ -61,7 +62,7 @@ const GamePage = () => {
                         </select>
                         <div className="flex gap-1">
                             <Button color="green" onClick={gameStart}>시작</Button>
-                            <Button color="pink">중단</Button>
+                            <Button color="pink" onClick={gameStop}>중단</Button>
                         </div>
                     </div>
                         <div className="grid grid-cols-2 gap-6 w-100 bg-slate-100 p-8 rounded-2xl">
