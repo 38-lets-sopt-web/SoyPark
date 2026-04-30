@@ -12,13 +12,13 @@ export const useGame = () => {
     const [score, setScore] = useState(0); // 총점수
     const [successCount, setSuccessCount] = useState(0);
     const [failCount, setFailCount] = useState(0); 
-    const [holeStates, setHoleStates] = useState(Array(4).fill('empty')); // 구멍 이미지 상태
+    const [holeStates, setHoleStates] = useState(Array(GAME_SETTINGS.HOLE_COUNT).fill('empty')); // 구멍 이미지 상태
 
     // 랜덤으로 졸린 강아지 노출
     const showDog = () => {
-        const randomIndex = Math.floor(Math.random() * 4);
+        const randomIndex = Math.floor(Math.random() * GAME_SETTINGS.HOLE_COUNT);
 
-        const newHoles = Array(4).fill(HOLE_STATUS.EMPTY);
+        const newHoles = Array(GAME_SETTINGS.HOLE_COUNT).fill(HOLE_STATUS.EMPTY);
 
         const isAngry = Math.random() < 0.3; // 30% 확률로 꽝
         newHoles[randomIndex] = isAngry ? HOLE_STATUS.ANGRY : HOLE_STATUS.SLEEPY;
@@ -42,7 +42,7 @@ export const useGame = () => {
                 if (now <= 1 ) { // 게임 종료
                     clearInterval(timerRef.current);
                     setIsPlaying(false);
-                    setHoleStates(Array(4).fill(HOLE_STATUS.EMPTY));
+                    setHoleStates(Array(GAME_SETTINGS.HOLE_COUNT).fill(HOLE_STATUS.EMPTY));
                     setGameMessage(GAME_MESSAGES.GAME_OVER);
                     return 0;
                 }
