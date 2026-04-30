@@ -15,7 +15,7 @@ const LankingPage = () => {
     ];
 
     return (
-        <div className="flex flex-col p-4 bg-blue-200 rounded-lg">
+        <section className="section-container">
             <div className="flex justify-between items-center mb-5">
                 <h1 className="font-semibold">랭킹 보드</h1>
                 <Button color="red">
@@ -55,7 +55,7 @@ const LankingPage = () => {
                 </tbody>
                 </table>
             </div>
-        </div>
+        </section>
     )
 }
 
