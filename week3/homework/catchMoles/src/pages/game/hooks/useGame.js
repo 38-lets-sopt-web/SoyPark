@@ -4,16 +4,17 @@ import { useRef } from "react";
 import { GAME_MESSAGES } from "../constants/gameMessages";
 
 export const useGame = () => {
-    const [timeLeft, setTimeLeft] = useState(GAME_SETTINGS.DEFAULT_LIMIT_TIME);
+    const [timeLeft, setTimeLeft] = useState(GAME_SETTINGS.DEFAULT_LIMIT_TIME); // 남은시간
     const [isPlaying, setIsPlaying] = useState(false);
     const timerRef = useRef(null);
     const [gameMessage, setGameMessage] = useState(GAME_MESSAGES.INTRO);
 
-    const [score, setScore] = useState(0);
+    const [score, setScore] = useState(0); // 총점수
     const [successCount, setSuccessCount] = useState(0);
     const [failCount, setFailCount] = useState(0); 
-    const [holeStates, setHoleStates] = useState(Array(4).fill('empty'));
+    const [holeStates, setHoleStates] = useState(Array(4).fill('empty')); // 구멍 이미지 상태
 
+    // 랜덤으로 졸린 강아지 노출
     const showDog = () => {
         const randomIndex = Math.floor(Math.random() * 4);
 
@@ -21,7 +22,6 @@ export const useGame = () => {
         newHoles[randomIndex] = 'sleepy';
         setHoleStates(newHoles);
     }
-
 
     const gameStart = () => {
         if(isPlaying) return;
@@ -36,15 +36,15 @@ export const useGame = () => {
         showDog();
 
         timerRef.current = setInterval(() => {
-            setTimeLeft((prev) => {
-                if (prev <= 1 ) {
+            setTimeLeft((now) => {
+                if (now <= 1 ) {
                     clearInterval(timerRef.current);
                     setIsPlaying(false);
                     setHoleStates(Array(4).fill(HOLE_STATUS.EMPTY));
                     setGameMessage(GAME_MESSAGES.GAME_OVER);
                     return 0;
                 }
-                return prev - 1
+                return now - 1
             })
         }, 1000);
     }
@@ -52,12 +52,12 @@ export const useGame = () => {
     const handleHoleClick = (index) => {
         if (!isPlaying) return;
 
-        if (holeStates[index] === HOLE_STATUS.SLEEPY){
+        if (holeStates[index] === HOLE_STATUS.SLEEPY){ // 성공시
             setScore((prev) => prev + 1);
             setSuccessCount((prev) => prev + 1);
             setGameMessage(GAME_MESSAGES.SUCCESS);
 
-            const successHoles = [...holeStates];
+            const successHoles = [...holeStates]; // 성공시 이미지 변경
             successHoles[index] = HOLE_STATUS.WAKE_UP;
             setHoleStates(successHoles);
 
@@ -71,7 +71,7 @@ export const useGame = () => {
             setGameMessage(GAME_MESSAGES.FAIL);
             
             showDog();
-            }
+        }
     }
 
     return {

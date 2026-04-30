@@ -10,7 +10,7 @@ const progressStyle = {
 
 const GamePage = () => {
     const 
-    {
+    {   
         timeLeft,
         score,
         successCount,
