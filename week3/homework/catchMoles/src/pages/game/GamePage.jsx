@@ -24,7 +24,7 @@ const GamePage = () => {
     return (
         <section className="flex rounded-lg bg-blue-200 p-4 gap-3">
             {/* 진행 상황 */}
-            <div className="grid grid-cols-2 gap-2 w-40 rounded-lg">
+            <div className="grid grid-cols-2 gap-2 w-45 rounded-lg">
                 <div className={`${progressStyle.container} col-span-2 py-6`}>
                     <p className={progressStyle.title}>남은 시간</p>
                     <p className={progressStyle.number}>{timeLeft}</p>
@@ -41,7 +41,7 @@ const GamePage = () => {
                     <p className={`${progressStyle.title} text-pink-500`}>실패</p>
                     <p className={progressStyle.number}>{failCount}</p>
                 </div>
-                <div className={`${progressStyle.container} col-span-2 pt-5 pb-8`}>
+                <div className={`${progressStyle.container} col-span-2 pt-5 pb-6`}>
                     <p className={`${progressStyle.title}`}>안내 메시지</p>
                     <p className="text-xs text-center mt-1">{gameMessage}</p>
                 </div>
