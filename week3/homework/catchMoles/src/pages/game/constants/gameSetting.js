@@ -9,7 +9,7 @@ export const HOLE_STATUS = {
   EMPTY: 'empty',
   SLEEPY: 'sleepy', 
   ANGRY: 'angry',  
-  HAPPY: 'happy',  
+  WAKE_UP: 'success',  
 };
 
 export const SCORE_CHANGE = {
