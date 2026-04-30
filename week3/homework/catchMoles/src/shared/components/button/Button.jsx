@@ -14,7 +14,7 @@ const Button = ({
     },
     red: "bg-red-500 hover:bg-red-600 border-red-500 text-white ",
     green: "bg-green-500 hover:bg-green-600 border-green-500 text-white ",
-    gray: "bg-gray-500 hover:bg-gray-600 border-gray-500 text-white ",
+    pink: "bg-pink-500 hover:bg-pink-600 border-pink-500 text-white ",
   };
 
   const currentColor = isActive ? colorStyles[color].active : colorStyles[color].inactive;
