@@ -12,14 +12,14 @@ const Button = ({
       active: "bg-blue-400 border-blue-400 text-white hover:bg-blue-300",
       inactive: "bg-transparent border-blue-400 text-blue-400 hover:bg-blue-300"
     },
-    red: "bg-red-500 hover:bg-red-600 border-red-500",
-    green: "bg-green-500 hover:bg-green-600 border-green-500",
-    gray: "bg-gray-500 hover:bg-gray-600 border-gray-500",
+    red: "bg-red-500 hover:bg-red-600 border-red-500 text-white ",
+    green: "bg-green-500 hover:bg-green-600 border-green-500 text-white ",
+    gray: "bg-gray-500 hover:bg-gray-600 border-gray-500 text-white ",
   };
 
   const currentColor = isActive ? colorStyles[color].active : colorStyles[color].inactive;
 
-  const baseStyles = "items-center rounded-full px-2 py-1 text-white text-sm border-2";
+  const baseStyles = "items-center rounded-full px-2 py-1 text-sm border-2";
 
   return (
     <button
