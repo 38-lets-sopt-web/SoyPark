@@ -18,8 +18,10 @@ export const useGame = () => {
     const showDog = () => {
         const randomIndex = Math.floor(Math.random() * 4);
 
-        const newHoles = Array(4).fill('empty');
-        newHoles[randomIndex] = 'sleepy';
+        const newHoles = Array(4).fill(HOLE_STATUS.EMPTY);
+
+        const isAngry = Math.random() < 0.3; // 30% 확률로 꽝
+        newHoles[randomIndex] = isAngry ? HOLE_STATUS.ANGRY : HOLE_STATUS.SLEEPY;
         setHoleStates(newHoles);
     }
 
@@ -37,7 +39,7 @@ export const useGame = () => {
 
         timerRef.current = setInterval(() => {
             setTimeLeft((now) => {
-                if (now <= 1 ) {
+                if (now <= 1 ) { // 게임 종료
                     clearInterval(timerRef.current);
                     setIsPlaying(false);
                     setHoleStates(Array(4).fill(HOLE_STATUS.EMPTY));
