@@ -12,4 +12,7 @@ body {
   .section-container {
     @apply flex flex-col rounded-lg bg-blue-200 p-4;
   }
+  .section-header {
+    @apply mb-5 flex items-center justify-between;
+  }
 }

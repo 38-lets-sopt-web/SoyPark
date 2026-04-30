@@ -16,7 +16,7 @@ const LankingPage = () => {
 
     return (
         <section className="section-container">
-            <div className="flex justify-between items-center mb-5">
+            <div className="section-header">
                 <h1 className="font-semibold">랭킹 보드</h1>
                 <Button color="red">
                     기록 초기화
