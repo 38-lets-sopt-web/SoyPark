@@ -68,9 +68,9 @@ const GamePage = () => {
                         <div className="grid grid-cols-2 gap-6 w-100 bg-slate-100 p-8 rounded-2xl">
                             {holeStates.map((status, index) => (
                                 <Hole 
-                                key={index} 
-                                status={status} 
-                                onClick={() => handleHoleClick(index)} 
+                                    key={index} 
+                                    status={status} 
+                                    onClick={() => handleHoleClick(index)} 
                                 />
                             ))}
                     </div>
