@@ -9,7 +9,7 @@ import {
   getRandomDogStatus,
   updateHoleStatus,
 } from '../utils/gameUtils';
-import { saveRanking } from "../../lanking/utils/saveRanking";
+import { saveRanking } from "../../ranking/utils/saveRanking";
 
 export const useGame = () => {
     const [timeLeft, setTimeLeft] = useState(GAME_SETTINGS.DEFAULT_LIMIT_TIME); // 남은시간
