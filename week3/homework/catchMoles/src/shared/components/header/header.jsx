@@ -12,8 +12,8 @@ return (
                 게임
             </Button>
             <Button
-                isActive={activeTab === 'lanking'}
-                onClick={() => onClick('lanking')}
+                isActive={activeTab === 'ranking'}
+                onClick={() => onClick('ranking')}
             >
                 랭킹
             </Button>

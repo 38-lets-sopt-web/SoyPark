@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Header from './shared/components/header/header';
 import GamePage from './pages/game/GamePage';
-import LankingPage from './pages/ranking/RankingPage';
+import RankingPage from './pages/ranking/RankingPage';
 
 function App() {
   const [activeTab, setActiveTab] = useState('game');
@@ -15,7 +15,7 @@ function App() {
       <Header activeTab={activeTab} onClick={handleTabClick} />
       <div>
         {activeTab === 'game' && <GamePage />}
-        {activeTab === 'lanking' && <LankingPage />}
+        {activeTab === 'ranking' && <RankingPage />}
       </div>
     </div>
   )
