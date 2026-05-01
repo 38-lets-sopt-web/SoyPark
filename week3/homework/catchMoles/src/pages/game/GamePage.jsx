@@ -56,9 +56,9 @@ const GamePage = () => {
                 <div className={`${progressStyle.container} w-full flex-1`}>
                     <div className="section-header w-full p-1">
                         <select className="bg-white/30 border-none rounded-lg px-1 py-1.5 text-xs font-semibold shadow-sm outline-none cursor-pointer">
-                            <option selected>Level 1</option>
-                            <option>Level 2</option>
-                            <option>Level 3</option>
+                            <option value="1">Level 1</option>
+                            <option value="2"></option>
+                            <option value="3">Level 3</option>
                         </select>
                         <div className="flex gap-1">
                             <Button color="green" onClick={gameStart}>시작</Button>
