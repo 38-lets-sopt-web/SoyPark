@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { GAME_MESSAGES } from "../constants/gameMessages";
 import { rankingStorage } from "../../../shared/utils/storage";
 import { useEffect } from "react";
+import { useCallback } from "react";
 
 export const useGame = () => {
     const [timeLeft, setTimeLeft] = useState(GAME_SETTINGS.DEFAULT_LIMIT_TIME); // 남은시간
@@ -17,8 +18,8 @@ export const useGame = () => {
     const [resetTime, setResetTime] = useState(GAME_SETTINGS.RESET_TIME);
 
     const timerRef = useRef(null); // 게임 전체 시간
-    const dogTimerRef = useRef(null); // 강아지 나오는 타이밍
     const modalTimerRef = useRef(null);
+    const holeTimersRef = useRef(new Array(GAME_SETTINGS.HOLE_COUNT).fill(null));
     
     // 초기화 함수
     const initGame = () => {
@@ -31,36 +32,55 @@ export const useGame = () => {
     };
 
     // 타이머 정리 함수
-    const clearAllTimers = () => {
+    const clearAllTimers = useCallback(() => {
         if (timerRef.current) {
             clearInterval(timerRef.current);
-            timerRef.current = null; 
-        }
-        if (dogTimerRef.current) {
-            clearTimeout(dogTimerRef.current);
-            dogTimerRef.current = null;
+            timerRef.current = null;
         }
         if (modalTimerRef.current) {
             clearInterval(modalTimerRef.current);
             modalTimerRef.current = null;
         }
-    };
+        if (holeTimersRef.current) {
+            holeTimersRef.current.forEach((timer) => {
+                if (timer) clearTimeout(timer);
+            });
+        }
+    }, []);
 
-    // 랜덤으로 졸린 강아지 노출
-    const showDog = () => {
-        if (dogTimerRef.current) clearTimeout(dogTimerRef.current);
+    // 랜덤으로 졸린 강아지 노출 (특정 hole)
+    const showDog = useCallback(function showDog(holeIndex) {
+        const isAngry = Math.random() < 0.3; // 30% 확률로 꽝
+        const newStatus = isAngry ? HOLE_STATUS.ANGRY : HOLE_STATUS.SLEEPY;
 
-        dogTimerRef.current = setTimeout(() => {
-            const randomIndex = Math.floor(Math.random() * GAME_SETTINGS.HOLE_COUNT);
-            const isAngry = Math.random() < 0.3; // 30% 확률로 꽝
+        setHoleStates((prev) => {
+            const updated = [...prev];
+            updated[holeIndex] = newStatus;
+            return updated;
+        });
 
-            const newHoles = Array(GAME_SETTINGS.HOLE_COUNT).fill(HOLE_STATUS.EMPTY);
-            newHoles[randomIndex] = isAngry ? HOLE_STATUS.ANGRY : HOLE_STATUS.SLEEPY;
+        holeTimersRef.current[holeIndex] = setTimeout(() => {
+            setHoleStates((prev) => {
+                const updated = [...prev];
+                updated[holeIndex] = HOLE_STATUS.EMPTY;
+                return updated;
+            });
+            
 
-            setHoleStates(newHoles);
+            holeTimersRef.current[holeIndex] = setTimeout(() => {
+                showDog(holeIndex);
+            }, GAME_SETTINGS.RANDOM_TIME());
 
-            showDog();
-        }, GAME_SETTINGS.RANDOM_TIME);
+        }, GAME_SETTINGS.DOG_SHOW_DURATION);
+    }, []);
+
+    // 모든 hole에 노출
+    const startAllDogs = () => {
+        for (let i = 0; i < GAME_SETTINGS.HOLE_COUNT; i++) {
+            holeTimersRef.current[i] = setTimeout(() => {
+                showDog(i);
+            },GAME_SETTINGS.RANDOM_TIME() + i * 500);
+        }
     };
 
     const gameStart = () => {
@@ -68,12 +88,15 @@ export const useGame = () => {
 
         setIsPlaying(true);
         initGame();
-        showDog();
+        startAllDogs();
 
         timerRef.current = setInterval(() => {
             setTimeLeft((now) => {
                 if (now <= 1 ) { // 게임 종료
-                    gameFinish();
+                    setScore((currentScore) => {
+                        setTimeout(() => gameFinish(currentScore), 0);
+                        return currentScore;
+                    });
                     return 0;
                 }
                 return now - 1
@@ -81,39 +104,40 @@ export const useGame = () => {
         }, GAME_SETTINGS.TIMER);
     };
 
-    const gameFinish = () => {
-    clearAllTimers();
+    const gameFinish = (finishScore) => {
+        if (!timerRef.current) return;
 
-    setIsPlaying(false);
-    setHoleStates(Array(GAME_SETTINGS.HOLE_COUNT).fill(HOLE_STATUS.EMPTY));
-    setGameMessage(GAME_MESSAGES.GAME_OVER);
+        clearAllTimers();
+        setIsPlaying(false);
+        setHoleStates(Array(GAME_SETTINGS.HOLE_COUNT).fill(HOLE_STATUS.EMPTY));
+        setGameMessage(GAME_MESSAGES.GAME_OVER);
 
-    rankingStorage.save({
-        id: Date.now(),
-        level: "Level 1",
-        score,
-        date: new Date().toLocaleString("ko-KR"),
-    });
+        if (finishScore > 0) {
+            rankingStorage.save({
+                id: Date.now(),
+                level: "Level 1",
+                score: finishScore,
+                date: new Date().toLocaleString("ko-KR"),
+            });
+        }
+        
 
-    setShowModal(true);
-    setResetTime(GAME_SETTINGS.RESET_TIME);
+        setShowModal(true);
+        setResetTime(GAME_SETTINGS.RESET_TIME);
 
-    modalTimerRef.current = setInterval(() => {
-        setResetTime((prev) => {
-            if (prev <= 1) {
-                clearInterval(modalTimerRef.current);
-                modalTimerRef.current = null;
-
-                setShowModal(false);
-                initGame();
-
-                return 0;
-            }
-
-            return prev - 1;
-        });
-    }, GAME_SETTINGS.TIMER);
-};
+        modalTimerRef.current = setInterval(() => {
+            setResetTime((prev) => {
+                if (prev <= 1) {
+                    clearInterval(modalTimerRef.current);
+                    modalTimerRef.current = null;
+                    setShowModal(false);
+                    initGame();
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, GAME_SETTINGS.TIMER);
+    };
 
     const gameStop = () => {
         clearAllTimers();
@@ -123,35 +147,53 @@ export const useGame = () => {
 
     const handleHoleClick = (index) => {
         if (!isPlaying) return;
+        if (holeTimersRef.current[index]) clearTimeout(holeTimersRef.current[index]);
 
         if (holeStates[index] === HOLE_STATUS.SLEEPY){ // 성공시
             setScore((prev) => prev + 1);
             setSuccessCount((prev) => prev + 1);
             setGameMessage(GAME_MESSAGES.SUCCESS);
 
-            const successHoles = [...holeStates]; // 성공시 이미지 변경
-            successHoles[index] = HOLE_STATUS.WAKE_UP;
-            setHoleStates(successHoles);
+            setHoleStates((prev) => { // 성공시 이미지 변경
+                const updated = [...prev];
+                updated[index] = HOLE_STATUS.WAKE_UP;
+                return updated;
+            });
 
-            if (dogTimerRef.current) clearTimeout(dogTimerRef.current);
+            holeTimersRef.current[index] = setTimeout(() => { // 성공한 구멍만 700ms 후에 비움
+                setHoleStates((prev) => {
+                    const updated = [...prev];
+                    updated[index] = HOLE_STATUS.EMPTY;
+                    return updated;
+                });
 
-            setTimeout(() => {
-                showDog();
-            }, GAME_SETTINGS.DOG_SHOW_DURATION);
+                holeTimersRef.current[index] = setTimeout(() => {
+                    showDog(index);
+                }, GAME_SETTINGS.RANDOM_TIME());
+
+            }, GAME_SETTINGS.SUCCESS_DURATION);
 
         } else if (holeStates[index] === HOLE_STATUS.ANGRY) { // 꽝 클릭시
             setScore((prev) => prev - 1);
             setFailCount((prev) => prev + 1);
             setGameMessage(GAME_MESSAGES.FAIL);
             
-            if (dogTimerRef.current) clearTimeout(dogTimerRef.current);
-            showDog();
+            setHoleStates((prev) => {
+                const updated = [...prev];
+                updated[index] = HOLE_STATUS.EMPTY;
+                return updated;
+            });
+
+            holeTimersRef.current[index] = setTimeout(() => {
+                showDog(index);
+            }, GAME_SETTINGS.RANDOM_TIME());
         }
     };
 
+    // 컴포넌트가 사라질 때 모든 타이머 파기
     useEffect(() => {
         return () => clearAllTimers();
-    }, []);
+    }, [clearAllTimers]);
 
     return {
         timeLeft,
