@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import Header from './shared/components/header/header';
 import GamePage from './pages/game/GamePage';
-import LankingPage from './pages/lanking/LankingPage';
-
-
+import LankingPage from './pages/ranking/RankingPage';
 
 function App() {
   const [activeTab, setActiveTab] = useState('game');
