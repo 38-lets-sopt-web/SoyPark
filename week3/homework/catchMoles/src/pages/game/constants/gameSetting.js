@@ -5,7 +5,7 @@ export const GAME_SETTINGS = {
   SUCCESS_DURATION: 700,
   RESET_TIME: 5,
   TIMER: 1000,
-  RANDOM_TIME: () => Math.floor(Math.random()*1500) + 1000,
+  RANDOM_TIME: () => Math.floor(Math.random() * 2000) + 1500,
 };
 
 export const HOLE_STATUS = {

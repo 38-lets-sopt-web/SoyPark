@@ -79,7 +79,7 @@ export const useGame = () => {
         for (let i = 0; i < GAME_SETTINGS.HOLE_COUNT; i++) {
             holeTimersRef.current[i] = setTimeout(() => {
                 showDog(i);
-            },GAME_SETTINGS.RANDOM_TIME() + i * 500);
+            },GAME_SETTINGS.RANDOM_TIME() + i * 1000);
         }
     };
 
