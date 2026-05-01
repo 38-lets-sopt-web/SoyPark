@@ -5,7 +5,7 @@ export const GAME_SETTINGS = {
   SUCCESS_DURATION: 700,
   RESET_TIME: 5,
   TIMER: 1000,
-  RANDOM_TIME: Math.floor(Math.random()*1000) + 500, // 0.5초 ~ 1.5
+  RANDOM_TIME: () => Math.floor(Math.random()*1500) + 1000,
 };
 
 export const HOLE_STATUS = {
@@ -13,9 +13,4 @@ export const HOLE_STATUS = {
   SLEEPY: 'sleepy', 
   ANGRY: 'angry',  
   WAKE_UP: 'success',  
-};
-
-export const SCORE_CHANGE = {
-  SUCCESS: 1,
-  FAIL: -1,
 };
