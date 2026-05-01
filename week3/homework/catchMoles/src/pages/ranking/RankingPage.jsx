@@ -10,7 +10,7 @@ const tableStyles = {
   td: "py-4 px-4",
 };
 
-const LankingPage = () => {
+const RankingPage = () => {
     const [rankings, setRankings] = useState(() => rankingStorage.get());
 
     const handleReset = () => {
@@ -65,4 +65,4 @@ const LankingPage = () => {
     )
 }
 
-export default LankingPage;
+export default RankingPage;
