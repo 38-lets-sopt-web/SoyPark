@@ -17,16 +17,16 @@ export const useGame = () => {
     const [score, setScore] = useState(0); // 총점수
     const [successCount, setSuccessCount] = useState(0);
     const [failCount, setFailCount] = useState(0); 
-    const [holeStates, setHoleStates] = useState(createEmptyHoleStates); // 구멍 이미지 상태
+    const [holeStates, setHoleStates] = useState(createEmptyHoleStates()); // 구멍 이미지 상태
     const [gameMessage, setGameMessage] = useState(GAME_MESSAGES.INTRO);
     const [showModal, setShowModal] = useState(false);
     const [resetTime, setResetTime] = useState(GAME_SETTINGS.RESET_TIME);
 
     const timerRef = useRef(null); // 게임 전체 시간
     const modalTimerRef = useRef(null);
-    const holeTimersRef = useRef(createEmptyHoleStates().map(() => null));
+    const holeTimersRef = useRef(new Array(GAME_SETTINGS.HOLE_COUNT).fill(null));
     
-    // 초기화 함수
+    // 초기화 함수 
     const initGame = () => {
         setTimeLeft(GAME_SETTINGS.DEFAULT_LIMIT_TIME);
         setGameMessage(GAME_MESSAGES.INTRO);
@@ -57,8 +57,7 @@ export const useGame = () => {
     const showDog = useCallback(function showDog(holeIndex) {
         const newStatus = getRandomDogStatus();
 
-        setHoleStates((prev) => { updateHoleStatus(prev, holeIndex, newStatus)});
-
+        setHoleStates((prev) => updateHoleStatus(prev, holeIndex, newStatus));
 
         holeTimersRef.current[holeIndex] = setTimeout(() => {
             setHoleStates((prev) => updateHoleStatus(prev, holeIndex, HOLE_STATUS.EMPTY));
