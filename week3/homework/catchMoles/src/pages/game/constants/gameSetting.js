@@ -4,6 +4,8 @@ export const GAME_SETTINGS = {
   DOG_SHOW_DURATION: 1000, 
   SUCCESS_DURATION: 700,
   RESET_TIME: 5,
+  TIMER: 1000,
+  RANDOM_TIME: Math.floor(Math.random()*1000) + 500, // 0.5초 ~ 1.5
 };
 
 export const HOLE_STATUS = {
