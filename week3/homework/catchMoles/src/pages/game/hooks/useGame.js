@@ -2,9 +2,14 @@ import { useState } from "react"
 import { GAME_SETTINGS, HOLE_STATUS } from "../constants/gameSetting"
 import { useRef } from "react";
 import { GAME_MESSAGES } from "../constants/gameMessages";
-import { rankingStorage } from "../../../shared/utils/storage";
 import { useEffect } from "react";
 import { useCallback } from "react";
+import {
+  createEmptyHoleStates,
+  getRandomDogStatus,
+  updateHoleStatus,
+} from '../utils/gameUtils';
+import { saveRanking } from "../../lanking/utils/saveLanking";
 
 export const useGame = () => {
     const [timeLeft, setTimeLeft] = useState(GAME_SETTINGS.DEFAULT_LIMIT_TIME); // 남은시간
@@ -12,14 +17,14 @@ export const useGame = () => {
     const [score, setScore] = useState(0); // 총점수
     const [successCount, setSuccessCount] = useState(0);
     const [failCount, setFailCount] = useState(0); 
-    const [holeStates, setHoleStates] = useState(Array(GAME_SETTINGS.HOLE_COUNT).fill('empty')); // 구멍 이미지 상태
+    const [holeStates, setHoleStates] = useState(createEmptyHoleStates); // 구멍 이미지 상태
     const [gameMessage, setGameMessage] = useState(GAME_MESSAGES.INTRO);
     const [showModal, setShowModal] = useState(false);
     const [resetTime, setResetTime] = useState(GAME_SETTINGS.RESET_TIME);
 
     const timerRef = useRef(null); // 게임 전체 시간
     const modalTimerRef = useRef(null);
-    const holeTimersRef = useRef(new Array(GAME_SETTINGS.HOLE_COUNT).fill(null));
+    const holeTimersRef = useRef(createEmptyHoleStates().map(() => null));
     
     // 초기화 함수
     const initGame = () => {
@@ -50,23 +55,14 @@ export const useGame = () => {
 
     // 랜덤으로 졸린 강아지 노출 (특정 hole)
     const showDog = useCallback(function showDog(holeIndex) {
-        const isAngry = Math.random() < 0.3; // 30% 확률로 꽝
-        const newStatus = isAngry ? HOLE_STATUS.ANGRY : HOLE_STATUS.SLEEPY;
+        const newStatus = getRandomDogStatus();
 
-        setHoleStates((prev) => {
-            const updated = [...prev];
-            updated[holeIndex] = newStatus;
-            return updated;
-        });
+        setHoleStates((prev) => { updateHoleStatus(prev, holeIndex, newStatus)});
+
 
         holeTimersRef.current[holeIndex] = setTimeout(() => {
-            setHoleStates((prev) => {
-                const updated = [...prev];
-                updated[holeIndex] = HOLE_STATUS.EMPTY;
-                return updated;
-            });
-            
-
+            setHoleStates((prev) => updateHoleStatus(prev, holeIndex, HOLE_STATUS.EMPTY));
+        
             holeTimersRef.current[holeIndex] = setTimeout(() => {
                 showDog(holeIndex);
             }, GAME_SETTINGS.RANDOM_TIME());
@@ -112,15 +108,7 @@ export const useGame = () => {
         setHoleStates(Array(GAME_SETTINGS.HOLE_COUNT).fill(HOLE_STATUS.EMPTY));
         setGameMessage(GAME_MESSAGES.GAME_OVER);
 
-        if (finishScore > 0) {
-            rankingStorage.save({
-                id: Date.now(),
-                level: "Level 1",
-                score: finishScore,
-                date: new Date().toLocaleString("ko-KR"),
-            });
-        }
-        
+        saveRanking(finishScore);
 
         setShowModal(true);
         setResetTime(GAME_SETTINGS.RESET_TIME);
@@ -161,11 +149,8 @@ export const useGame = () => {
             });
 
             holeTimersRef.current[index] = setTimeout(() => { // 성공한 구멍만 700ms 후에 비움
-                setHoleStates((prev) => {
-                    const updated = [...prev];
-                    updated[index] = HOLE_STATUS.EMPTY;
-                    return updated;
-                });
+                setHoleStates((prev) => updateHoleStatus(prev, index, HOLE_STATUS.EMPTY));
+            
 
                 holeTimersRef.current[index] = setTimeout(() => {
                     showDog(index);
@@ -178,11 +163,7 @@ export const useGame = () => {
             setFailCount((prev) => prev + 1);
             setGameMessage(GAME_MESSAGES.FAIL);
             
-            setHoleStates((prev) => {
-                const updated = [...prev];
-                updated[index] = HOLE_STATUS.EMPTY;
-                return updated;
-            });
+            setHoleStates((prev) => updateHoleStatus(prev, index, HOLE_STATUS.EMPTY));
 
             holeTimersRef.current[index] = setTimeout(() => {
                 showDog(index);
