@@ -2,6 +2,7 @@ import { useState } from "react"
 import { GAME_SETTINGS, HOLE_STATUS } from "../constants/gameSetting"
 import { useRef } from "react";
 import { GAME_MESSAGES } from "../constants/gameMessages";
+import { rankingStorage } from "../../../shared/utils/storage";
 
 export const useGame = () => {
     const [timeLeft, setTimeLeft] = useState(GAME_SETTINGS.DEFAULT_LIMIT_TIME); // 남은시간
@@ -83,6 +84,16 @@ export const useGame = () => {
     const triggerModal = () => {
         setShowModal(true);
         setResetTime(GAME_SETTINGS.RESET_TIME);
+
+        // 성공한 판 저장
+        if (score > 0) {
+        rankingStorage.save({
+            id: Date.now(),
+            level: "Level 1", // 우선 레벨 1만
+            score: score,
+            date: new Date().toLocaleString(),
+        });
+    }
 
         if (modalTimerRef.current) {
             clearInterval(modalTimerRef.current);

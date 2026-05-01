@@ -1,4 +1,6 @@
+import { useState } from "react";
 import Button from "../../shared/components/button/Button";
+import { rankingStorage } from "../../shared/utils/storage";
 
 const tableStyles = {
   table: "w-full text-sm text-center",
@@ -9,16 +11,20 @@ const tableStyles = {
 };
 
 const LankingPage = () => {
-    // 임시데이터
-    const rankings = [
-        { id: 1, rank: 1, level: "Level 2", score: "20점", date: "2026. 4. 25. 오전 1:14:15" },
-    ];
+    const [rankings, setRankings] = useState(() => rankingStorage.get());
+
+    const handleReset = () => {
+        if (window.confirm("기록을 정말 초기화할까요?")) {
+            rankingStorage.clear();
+            setRankings([]);
+        }
+    }
 
     return (
         <section className="section-container">
             <div className="section-header">
                 <h1 className="font-semibold">랭킹 보드</h1>
-                <Button color="red">
+                <Button color="red" onClick={handleReset}>
                     기록 초기화
                 </Button>
             </div>
