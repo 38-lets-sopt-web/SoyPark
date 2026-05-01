@@ -43,9 +43,9 @@ const LankingPage = () => {
                 
                 {/* 테이블 바디 */}
                 <tbody className="divide-y divide-blue-100">
-                    {rankings.map((item) => (
+                    {rankings.map((item, index) => (
                         <tr key={item.id} className="text-slate-600 hover:bg-white/40 transition-colors">
-                            <td className={tableStyles.td}>{item.rank}</td>
+                            <td className={tableStyles.td}>{index+1}</td>
                             <td className={tableStyles.td}>{item.level}</td>
                             <td className={tableStyles.td}>{item.score}</td>
                             <td className={tableStyles.td}>{item.date}</td>
