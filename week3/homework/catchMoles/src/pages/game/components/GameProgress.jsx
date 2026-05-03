@@ -1,4 +1,3 @@
-// src/pages/game/components/GameBoard.jsx
 import Button from "../../../shared/components/button/Button";
 import Hole from "./Hole";
 
