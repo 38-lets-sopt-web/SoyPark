@@ -1,0 +1,49 @@
+.filter-section h2 {
+    font-size: 1.8rem;
+    font-weight: var(--weight-bold);
+    margin-bottom: 2rem;
+}
+
+.filter-form {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas:
+        "a a a a a a"  
+        "b b c c d d"  
+        "e e e f f f"; 
+    gap: 1.4rem;
+    width: 100%;
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.2rem;
+    width: 100%;
+}
+
+.filter-title { 
+    grid-area: a; 
+}
+
+.filter-type { 
+    grid-area: b;
+}
+
+.filter-category { 
+    grid-area: c; 
+}
+
+.filter-payment { 
+    grid-area: d; 
+}
+
+#btn-apply { 
+    grid-area: e; 
+}
+
+#btn-reset { 
+    grid-area: f; 
+}
+
