@@ -31,7 +31,7 @@ const Header = () => {
     <header className={styles.HeaderContainer}>
       <div className={styles.LeftText}>
         <h1 className={styles.headerText}>SOPT MEMBERS</h1>
-        <p className={styles.pText}>안녕하세요 {userInfo?.meta.name}님</p>
+        <p className={styles.pText}>안녕하세요 {userInfo?.data.name}님</p>
       </div>
 
       <div className={styles.RightText}>

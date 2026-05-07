@@ -24,12 +24,21 @@ const LoginPage = () => {
 
     try {
       const response = await postLogin(requestBody);
-      const userId = response.meta.userId;
-      localStorage.setItem(LOCAL_STORAGE_KEY.userID, String(userId));
+      console.log("로그인 응답 데이터:", response);
 
-      navigate("/mypage");
-    } catch {
-      alert("로그인 실패");
+      if (response.success && response.data) {
+        localStorage.setItem(
+          LOCAL_STORAGE_KEY.userID,
+          String(response.data.userId),
+        );
+        alert("로그인 성공!");
+        navigate("/mypage");
+      } else {
+        alert(response.message || "로그인 실패");
+      }
+    } catch (error) {
+      console.error("실제 발생한 에러:", error);
+      alert("로그인 실패/내부에러");
     }
   };
 

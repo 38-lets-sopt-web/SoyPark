@@ -3,5 +3,5 @@ export interface BaseResponse<T = null> {
   status: number;
   code: string;
   message: string;
-  meta: T;
+  data: T;
 }
