@@ -5,15 +5,36 @@ import PartSelect from "@components/textField/PartSelect";
 import useSignupForm from "./hooks/useSignupForm";
 import { PART_OPTIONS } from "./constants/partOption";
 import * as styles from "./SignupPage.css";
+import { postSignup } from "@/pages/signup/apis/signup";
 
 const SignupPage = () => {
   const navigate = useNavigate();
 
   const handleGoToLogin = () => {
-    navigate("/login");
+    navigate("/");
   };
 
-  const { step, nextStep, isNextDisabled, getInputProps } = useSignupForm();
+  const { values, step, nextStep, isNextDisabled, getInputProps } =
+    useSignupForm();
+
+  const handleSignup = async () => {
+    const requestBody = {
+      loginId: values.id,
+      password: values.password,
+      name: values.name,
+      email: values.email,
+      age: Number(values.age),
+      part: values.part,
+    };
+
+    try {
+      await postSignup(requestBody);
+      alert(`${values.name}님, 회원가입을 축하합니다!`);
+      handleGoToLogin();
+    } catch {
+      alert("회원가입 실패");
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -70,7 +91,16 @@ const SignupPage = () => {
         )}
       </div>
       <div className={styles.btnContainer}>
-        <Button disabled={isNextDisabled} onClick={nextStep}>
+        <Button
+          disabled={isNextDisabled}
+          onClick={() => {
+            if (step === 3) {
+              handleSignup();
+            } else {
+              nextStep();
+            }
+          }}
+        >
           {step === 3 ? "회원가입" : "다음 단계"}
         </Button>
         <button type="button" className={styles.btn} onClick={handleGoToLogin}>
