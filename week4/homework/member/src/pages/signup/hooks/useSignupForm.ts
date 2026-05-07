@@ -7,7 +7,7 @@ import {
 } from "../utils/validate";
 import { useMemo, useState } from "react";
 
-interface InitialFormData {
+export interface InitialFormData {
   id: string;
   password: string;
   passwordConfirm: string;
@@ -102,6 +102,7 @@ const useSignupForm = () => {
     isNextDisabled,
     getInputProps,
     values,
+    setValues,
   };
 };
 

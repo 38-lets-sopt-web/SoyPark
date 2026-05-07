@@ -5,15 +5,28 @@ import type { ResponseUserInfo } from "@pages/mypage/types/mypage";
 import { getUserInfo } from "@apis/getUserInfo";
 import { LOCAL_STORAGE_KEY } from "@constants/key";
 import { useState, useEffect } from "react";
-import { PART_OPTIONS } from "@/pages/signup/constants/partOption";
-import PartSelect from "@components/textField/PartSelect";
 import TextField from "@components/textField/TextField";
-import useSignupForm from "@pages/signup/hooks/useSignupForm";
+import useSignupForm, {
+  type InitialFormData,
+} from "@pages/signup/hooks/useSignupForm";
 import Button from "@components/button/Button";
 
 const MyPage = () => {
   const [userInfo, setUserInfo] = useState<ResponseUserInfo>();
-  const { getInputProps } = useSignupForm();
+  const { setValues, getInputProps } = useSignupForm();
+  const data = userInfo?.data;
+
+  // 정보 채워두기 (이름, 이메일, 나이)
+  useEffect(() => {
+    if (data) {
+      setValues((prev: InitialFormData) => ({
+        ...prev,
+        name: data.name || "",
+        email: data.email || "",
+        age: String(data.age || ""),
+      }));
+    }
+  }, [data, setValues]);
 
   useEffect(() => {
     const userId = Number(localStorage.getItem(LOCAL_STORAGE_KEY.userID));
@@ -25,7 +38,7 @@ const MyPage = () => {
     }
   }, []);
 
-  const data = userInfo?.data;
+  const handleEdit = async () => {};
 
   return (
     <div className={styles.wrapper}>
@@ -35,12 +48,7 @@ const MyPage = () => {
         <TextField label="이름" {...getInputProps("name")} />
         <TextField label="이메일" {...getInputProps("email")} />
         <TextField label="나이" {...getInputProps("age")} />
-        <PartSelect
-          label="파트"
-          options={PART_OPTIONS}
-          {...getInputProps("part")}
-        />
-        <Button>정보 수정</Button>
+        <Button onClick={handleEdit}>정보 수정</Button>
       </section>
     </div>
   );
