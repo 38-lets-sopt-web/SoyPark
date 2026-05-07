@@ -3,7 +3,7 @@ import type { ResponseUserInfo } from "@pages/mypage/types/mypage";
 
 // 개인정보 조회
 export const getUserInfo = async (
-  userId: string,
+  userId: number,
 ): Promise<ResponseUserInfo> => {
   const { data } = await axiosInstance.get(`/api/v1/users/${userId}`);
 

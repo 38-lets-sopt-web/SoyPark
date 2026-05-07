@@ -18,7 +18,7 @@ const Header = () => {
   };
 
   useEffect(() => {
-    const userId = localStorage.getItem(LOCAL_STORAGE_KEY.userID);
+    const userId = Number(localStorage.getItem(LOCAL_STORAGE_KEY.userID));
 
     if (userId) {
       getUserInfo(userId).then((data) => {

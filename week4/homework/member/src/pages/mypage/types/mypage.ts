@@ -15,7 +15,7 @@ export type PatchProfile = BaseResponse<{
   age: number;
 }>;
 
-export type ResponsetUsers = BaseResponse<{
+export type ResponseUsers = BaseResponse<{
   users: users[];
 }>;
 
