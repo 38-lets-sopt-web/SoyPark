@@ -14,7 +14,7 @@ import { patchUserInfo } from "@/pages/mypage/apis/mypage";
 
 const MyPage = () => {
   const [userInfo, setUserInfo] = useState<ResponseUserInfo>();
-  const { values, setValues, getInputProps } = useSignupForm();
+  const { values, setValues, getInputProps, errors } = useSignupForm(3);
   const data = userInfo?.data;
 
   // 정보 채워두기 (이름, 이메일, 나이)
@@ -67,7 +67,11 @@ const MyPage = () => {
       <MyCard id={data?.loginId || ""} part={data?.part || ""} />
       <section className={styles.editArea}>
         <TextField label="이름" {...getInputProps("name")} />
-        <TextField label="이메일" {...getInputProps("email")} />
+        <TextField
+          label="이메일"
+          {...getInputProps("email")}
+          errorMessage={errors.email}
+        />
         <TextField label="나이" {...getInputProps("age")} />
         <Button onClick={handleEdit}>정보 수정</Button>
       </section>

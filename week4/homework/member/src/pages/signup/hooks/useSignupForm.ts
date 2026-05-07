@@ -27,8 +27,8 @@ const initialValues: InitialFormData = {
   part: "",
 };
 
-const useSignupForm = () => {
-  const [step, setStep] = useState(1);
+const useSignupForm = (initialStep = 1) => {
+  const [step, setStep] = useState(initialStep);
   const [values, setValues] = useState<InitialFormData>(initialValues);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
@@ -98,6 +98,7 @@ const useSignupForm = () => {
 
   return {
     step,
+    errors,
     nextStep,
     isNextDisabled,
     getInputProps,
