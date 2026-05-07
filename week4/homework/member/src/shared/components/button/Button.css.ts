@@ -14,6 +14,7 @@ export const button = recipe({
     width: "100%",
     fontSize: "1.3rem",
     fontWeight: "bold",
+    transition: "background-color 0.2s ease-in-out, transform 0.1s active",
   },
   variants: {
     state: {
