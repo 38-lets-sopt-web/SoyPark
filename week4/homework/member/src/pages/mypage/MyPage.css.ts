@@ -17,3 +17,7 @@ export const editArea = style({
   justifyContent: "center",
   width: "80%",
 });
+
+export const cardContainer = style({
+  width: "80%",
+});

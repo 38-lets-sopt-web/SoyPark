@@ -64,7 +64,10 @@ const MyPage = () => {
   return (
     <div className={styles.wrapper}>
       <Title title="내 정보" />
-      <MyCard id={data?.loginId || ""} part={data?.part || ""} />
+      <div className={styles.cardContainer}>
+        <MyCard id={data?.loginId || ""} part={data?.part || ""} />
+      </div>
+
       <section className={styles.editArea}>
         <TextField label="이름" {...getInputProps("name")} />
         <TextField
