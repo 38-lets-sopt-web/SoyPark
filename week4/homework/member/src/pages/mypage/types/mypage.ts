@@ -14,3 +14,13 @@ export type PatchProfile = BaseResponse<{
   email: string;
   age: number;
 }>;
+
+export type ResponsetUsers = BaseResponse<{
+  users: users[];
+}>;
+
+type users = {
+  id: number;
+  name: string;
+  part: string;
+};
