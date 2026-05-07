@@ -6,6 +6,7 @@ import useSignupForm from "./hooks/useSignupForm";
 import { PART_OPTIONS } from "./constants/partOption";
 import * as styles from "./SignupPage.css";
 import { postSignup } from "@/pages/signup/apis/signup";
+import { LOCAL_STORAGE_KEY } from "@/shared/constants/key";
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -28,7 +29,11 @@ const SignupPage = () => {
     };
 
     try {
-      await postSignup(requestBody);
+      const response = await postSignup(requestBody);
+
+      const userId = response.data.userId;
+      localStorage.setItem(LOCAL_STORAGE_KEY.userID, String(userId));
+
       alert(`${values.name}님, 회원가입을 축하합니다!`);
       handleGoToLogin();
     } catch {
