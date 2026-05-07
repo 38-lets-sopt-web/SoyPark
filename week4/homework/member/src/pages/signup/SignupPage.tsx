@@ -1,9 +1,83 @@
+import { useNavigate } from "react-router-dom";
+import TextField from "@components/textField/TextField";
+import Button from "@components/button/Button";
+import PartSelect from "@components/textField/partSelect";
+import useSignupForm from "./hooks/useSignupForm";
+import { PART_OPTIONS } from "./constants/partOption";
+import * as styles from "./SignupPage.css";
+
 const SignupPage = () => {
+  const navigate = useNavigate();
+
+  const handleGoToLogin = () => {
+    navigate("/login");
+  };
+
+  const { step, nextStep, isNextDisabled, getInputProps } = useSignupForm();
+
   return (
-    <>
-      회원가입페이지
-      <h1>네..</h1>
-    </>
+    <div className={styles.wrapper}>
+      <h1 className={styles.header}>회원가입</h1>
+      <div className={styles.container}>
+        {step === 1 && (
+          <TextField
+            label="아이디"
+            placeholder="아이디를 입력해 주세요"
+            {...getInputProps("id")}
+          />
+        )}
+
+        {step === 2 && (
+          <>
+            <TextField
+              label="비밀번호"
+              type="password"
+              placeholder="비밀번호를 입력해 주세요"
+              {...getInputProps("password")}
+            />
+            <TextField
+              label="비밀번호 확인"
+              type="password"
+              placeholder="비밀번호를 다시 입력해 주세요"
+              {...getInputProps("passwordConfirm")}
+            />
+          </>
+        )}
+
+        {step === 3 && (
+          <>
+            <TextField
+              label="이름"
+              placeholder="이름을 입력해 주세요"
+              {...getInputProps("name")}
+            />
+            <TextField
+              label="이메일"
+              placeholder="이메일을 입력해 주세요"
+              {...getInputProps("email")}
+            />
+            <TextField
+              label="나이"
+              placeholder="나이를 입력해 주세요"
+              {...getInputProps("age")}
+            />
+            <PartSelect
+              label="파트"
+              options={PART_OPTIONS}
+              {...getInputProps("part")}
+            />
+          </>
+        )}
+      </div>
+      <div className={styles.btnContainer}>
+        <Button disabled={isNextDisabled} onClick={nextStep}>
+          {step === 3 ? "회원가입" : "다음 단계"}
+        </Button>
+        <button type="button" className={styles.btn} onClick={handleGoToLogin}>
+          로그인
+        </button>
+      </div>
+    </div>
   );
 };
 

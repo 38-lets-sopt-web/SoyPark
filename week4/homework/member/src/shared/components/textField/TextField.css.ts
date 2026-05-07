@@ -55,4 +55,5 @@ export const errorMessage = style({
   fontSize: "1.3rem",
   color: vars.color.red,
   marginTop: "0.2rem",
+  alignSelf: "flex-start",
 });
