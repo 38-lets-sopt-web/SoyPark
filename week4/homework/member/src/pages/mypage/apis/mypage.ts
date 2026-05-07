@@ -1,4 +1,8 @@
-import type { ResponseUsers, ResponseUserInfo } from "../types/mypage";
+import type {
+  ResponseUsers,
+  ResponseUserInfo,
+  PatchProfile,
+} from "../types/mypage";
 import { axiosInstance } from "@apis/axiosInstance";
 
 // 전체 유저 정보 조회
@@ -11,8 +15,9 @@ export const getUsers = async (): Promise<ResponseUsers> => {
 // 정보 수정
 export const patchUserInfo = async (
   userId: number,
+  body: PatchProfile,
 ): Promise<ResponseUserInfo> => {
-  const { data } = await axiosInstance.patch(`/api/v1/users/${userId}`);
+  const { data } = await axiosInstance.patch(`/api/v1/users/${userId}`, body);
 
   return data;
 };

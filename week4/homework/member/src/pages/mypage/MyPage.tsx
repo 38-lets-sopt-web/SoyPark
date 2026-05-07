@@ -10,10 +10,11 @@ import useSignupForm, {
   type InitialFormData,
 } from "@pages/signup/hooks/useSignupForm";
 import Button from "@components/button/Button";
+import { patchUserInfo } from "@/pages/mypage/apis/mypage";
 
 const MyPage = () => {
   const [userInfo, setUserInfo] = useState<ResponseUserInfo>();
-  const { setValues, getInputProps } = useSignupForm();
+  const { values, setValues, getInputProps } = useSignupForm();
   const data = userInfo?.data;
 
   // 정보 채워두기 (이름, 이메일, 나이)
@@ -24,21 +25,41 @@ const MyPage = () => {
         name: data.name || "",
         email: data.email || "",
         age: String(data.age || ""),
+        part: data.part || "",
       }));
     }
   }, [data, setValues]);
 
-  useEffect(() => {
-    const userId = Number(localStorage.getItem(LOCAL_STORAGE_KEY.userID));
+  const userId = Number(localStorage.getItem(LOCAL_STORAGE_KEY.userID));
 
+  useEffect(() => {
     if (userId) {
       getUserInfo(userId).then((data) => {
         setUserInfo(data);
       });
     }
-  }, []);
+  }, [userId]);
 
-  const handleEdit = async () => {};
+  const handleEdit = async () => {
+    try {
+      const requestBody = {
+        name: values.name,
+        email: values.email,
+        age: Number(values.age),
+      };
+
+      const response = await patchUserInfo(userId, requestBody);
+
+      if (response.success) {
+        alert("정보 수정 성공");
+        // window.location.reload();
+      } else {
+        alert("정보 수정 실패");
+      }
+    } catch (err) {
+      console.error("정보 수정 에러", err);
+    }
+  };
 
   return (
     <div className={styles.wrapper}>

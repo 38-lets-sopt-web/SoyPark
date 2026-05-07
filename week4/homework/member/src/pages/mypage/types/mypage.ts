@@ -9,11 +9,11 @@ export type ResponseUserInfo = BaseResponse<{
   part: string;
 }>;
 
-export type PatchProfile = BaseResponse<{
+export type PatchProfile = {
   name: string;
   email: string;
   age: number;
-}>;
+};
 
 export type ResponseUsers = BaseResponse<{
   users: users[];
