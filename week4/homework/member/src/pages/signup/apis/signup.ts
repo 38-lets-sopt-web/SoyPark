@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/shared/apis/axios";
+import { axiosInstance } from "@apis/axiosInstance";
 import type { RequestSignup } from "../types/signup";
 
 export const postSignup = async (body: RequestSignup) => {
