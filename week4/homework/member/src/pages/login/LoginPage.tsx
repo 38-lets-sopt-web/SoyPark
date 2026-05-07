@@ -24,7 +24,6 @@ const LoginPage = () => {
 
     try {
       const response = await postLogin(requestBody);
-      console.log("로그인 응답 데이터:", response);
 
       if (response.success && response.data) {
         localStorage.setItem(
