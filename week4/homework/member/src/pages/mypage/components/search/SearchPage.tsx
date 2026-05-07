@@ -40,7 +40,9 @@ const SearchPage = () => {
           onChange={setSearchId}
           placeholder="ID를 입력하세요."
         />
-        <Button onClick={handleSearch}>검색</Button>
+        <Button onClick={handleSearch} disabled={!searchId}>
+          검색
+        </Button>
         <div className={styles.result}>
           <p className={styles.headingText}>검색 결과</p>
           <div className={styles.resultContent}>
