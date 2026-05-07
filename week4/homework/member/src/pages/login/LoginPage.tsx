@@ -1,6 +1,6 @@
 import TextField from "@components/textField/TextField";
 import { useState } from "react";
-import * as styles from "./Login.css";
+import * as styles from "./LoginPage.css";
 import Button from "@components/button/Button";
 import { useNavigate } from "react-router-dom";
 
@@ -20,11 +20,18 @@ const LoginPage = () => {
     <div className={styles.wrapper}>
       <h1 className={styles.header}>SOPT MEMBERS</h1>
       <div className={styles.container}>
-        <TextField label="아이디" type="text" value={id} onChange={setId} />
+        <TextField
+          label="아이디"
+          type="text"
+          value={id}
+          placeholder="아이디를 입력해 주세요"
+          onChange={setId}
+        />
         <TextField
           label="비밀번호"
           type="password"
           value={password}
+          placeholder="비밀번호를 입력해 주세요"
           onChange={setPassword}
         />
       </div>
