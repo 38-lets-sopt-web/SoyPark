@@ -7,6 +7,7 @@ import { PART_OPTIONS } from "./constants/partOption";
 import * as styles from "./SignupPage.css";
 import { postSignup } from "@/pages/signup/apis/signup";
 import { LOCAL_STORAGE_KEY } from "@/shared/constants/key";
+import Title from "@components/title/Title";
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const SignupPage = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.header}>회원가입</h1>
+      <Title title="회원가입" />
       <div className={styles.container}>
         {step === 1 && (
           <TextField

@@ -10,11 +10,6 @@ export const wrapper = style({
   width: "100%",
 });
 
-export const header = style({
-  fontSize: "3rem",
-  fontWeight: "bold",
-});
-
 export const container = style({
   display: "flex",
   flexDirection: "column",

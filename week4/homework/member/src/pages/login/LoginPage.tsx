@@ -4,6 +4,7 @@ import * as styles from "./LoginPage.css";
 import Button from "@components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "@/pages/login/apis/login";
+import Title from "@components/title/Title";
 
 const LoginPage = () => {
   const [id, setId] = useState("");
@@ -33,7 +34,7 @@ const LoginPage = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.header}>SOPT MEMBERS</h1>
+      <Title title="SOPT MEMBERS" />
       <div className={styles.container}>
         <TextField
           label="아이디"
