@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import TextField from "@components/textField/TextField";
 import Button from "@components/button/Button";
-import PartSelect from "@components/textField/partSelect";
+import PartSelect from "@components/textField/PartSelect";
 import useSignupForm from "./hooks/useSignupForm";
 import { PART_OPTIONS } from "./constants/partOption";
 import * as styles from "./SignupPage.css";
