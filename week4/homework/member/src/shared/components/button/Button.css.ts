@@ -6,16 +6,20 @@ export const button = recipe({
     alignItems: "center",
     gap: "0.8rem",
     border: "none",
-    borderRadius: "999px",
-    padding: "0rem 1.2rem",
+    borderRadius: "8px",
+    padding: "0.5rem 0",
     height: "2.8rem",
+    backgroundColor: vars.color.blue,
+    color: vars.color.white,
+    width: "100%",
+    fontSize: "1.3rem",
+    fontWeight: "bold",
   },
   variants: {
     state: {
       active: {
-        backgroundColor: vars.color.blue,
-        ":active": {
-          backgroundColor: vars.color.lightBlue,
+        ":hover": {
+          backgroundColor: vars.color.navy,
         },
       },
       disabled: {

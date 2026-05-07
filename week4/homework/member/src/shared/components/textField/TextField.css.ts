@@ -12,6 +12,7 @@ export const container = style({
 export const label = style({
   fontSize: "1.3rem",
   fontWeight: "bold",
+  alignSelf: "flex-start",
 });
 
 export const inputWrapper = style({
@@ -38,7 +39,7 @@ export const input = style({
 
 export const iconBtn = style({
   position: "absolute",
-  right: "1rem",
+  right: "1.3rem",
   background: "none",
   border: "none",
   cursor: "pointer",
@@ -47,7 +48,7 @@ export const iconBtn = style({
   justifyContent: "center",
   padding: 0,
   color: vars.color.gray,
-  fontSize: "1.2rem",
+  fontSize: "1.5rem",
 });
 
 export const errorMessage = style({
