@@ -3,7 +3,7 @@ import Layout from "./RootLayout";
 import LoginPage from "@pages/login/LoginPage.tsx";
 import SignupPage from "@pages/signup/SignupPage";
 import MyPage from "@pages/mypage/MyPage";
-import SearchPage from "@pages/search/SearchPage";
+import SearchPage from "@/pages/mypage/components/search/SearchPage";
 
 const router = createBrowserRouter([
   {
