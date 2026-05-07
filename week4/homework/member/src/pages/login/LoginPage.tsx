@@ -3,6 +3,7 @@ import { useState } from "react";
 import * as styles from "./LoginPage.css";
 import Button from "@components/button/Button";
 import { useNavigate } from "react-router-dom";
+import { postLogin } from "@/pages/login/apis/login";
 
 const LoginPage = () => {
   const [id, setId] = useState("");
@@ -11,6 +12,20 @@ const LoginPage = () => {
 
   const handleGoToSignup = () => {
     navigate("/signup");
+  };
+
+  const handleLogin = async () => {
+    const requestBody = {
+      loginId: id,
+      password: password,
+    };
+
+    try {
+      await postLogin(requestBody);
+      navigate("/mypage");
+    } catch {
+      alert("로그인 실패");
+    }
   };
 
   // 버튼 비활성화 조건
@@ -36,7 +51,9 @@ const LoginPage = () => {
         />
       </div>
       <div className={styles.btnContainer}>
-        <Button disabled={isNextDisabled}>로그인</Button>
+        <Button disabled={isNextDisabled} onClick={handleLogin}>
+          로그인
+        </Button>
         <button type="button" className={styles.btn} onClick={handleGoToSignup}>
           회원가입
         </button>
