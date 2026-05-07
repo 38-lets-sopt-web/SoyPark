@@ -12,4 +12,5 @@ export const container = style({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  minHeight: "100vh",
 });
