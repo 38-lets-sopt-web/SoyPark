@@ -5,6 +5,7 @@ import Button from "@components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "@/pages/login/apis/login";
 import Title from "@components/title/Title";
+import { LOCAL_STORAGE_KEY } from "@constants/key";
 
 const LoginPage = () => {
   const [id, setId] = useState("");
@@ -22,7 +23,10 @@ const LoginPage = () => {
     };
 
     try {
-      await postLogin(requestBody);
+      const response = await postLogin(requestBody);
+      const userId = response.meta.userId;
+      localStorage.setItem(LOCAL_STORAGE_KEY.userID, String(userId));
+
       navigate("/mypage");
     } catch {
       alert("로그인 실패");
