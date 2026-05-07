@@ -8,7 +8,7 @@ export const wrapper = style({
   padding: "3rem",
   backgroundColor: vars.color.white,
   borderRadius: "8px",
-  width: "80%",
+  width: "100%",
 });
 
 export const container = style({
