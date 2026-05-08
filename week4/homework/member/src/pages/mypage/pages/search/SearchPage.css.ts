@@ -40,4 +40,5 @@ export const resultContent = style({
   width: "100%",
   borderRadius: "8px",
   padding: "1rem",
+  minHeight: "20rem",
 });
