@@ -12,6 +12,13 @@ export const wrapper = style({
   justifyContent: "center",
   alignItems: "center",
   whiteSpace: "nowrap",
+  transition: "transform 0.3s ease-in-out",
+
+  selectors: {
+    "&:hover": {
+      transform: "scale(0.96)",
+    },
+  },
 });
 
 export const content = styleVariants({

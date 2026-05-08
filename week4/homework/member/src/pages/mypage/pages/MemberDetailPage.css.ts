@@ -26,4 +26,10 @@ export const btn = style({
   fontWeight: "bold",
   color: vars.color.blue,
   alignSelf: "flex-start",
+
+  selectors: {
+    "&:hover": {
+      color: vars.color.navy,
+    },
+  },
 });
