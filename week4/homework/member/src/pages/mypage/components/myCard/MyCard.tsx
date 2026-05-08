@@ -20,7 +20,7 @@ const MyCard = ({ id, part, all = false, name, email, age }: MyCardProps) => {
         <p className={styles.title}>파트</p>
         <p className={styles.content}>{part}</p>
       </div>
-      {!all && (
+      {!!all && (
         <>
           <div className={styles.container}>
             <p className={styles.title}>이름</p>
