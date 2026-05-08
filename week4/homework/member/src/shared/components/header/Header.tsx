@@ -17,6 +17,12 @@ const Header = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem(LOCAL_STORAGE_KEY.userID);
+    alert("로그아웃 완료");
+    navigate("/");
+  };
+
   useEffect(() => {
     const userId = Number(localStorage.getItem(LOCAL_STORAGE_KEY.userID));
 
@@ -39,12 +45,15 @@ const Header = () => {
           내 정보
         </button>
         <button
+          type="button"
           className={styles.btnText}
           onClick={() => handleNavigate("search")}
         >
           회원 조회
         </button>
-        <button className={styles.btnText}>로그아웃</button>
+        <button type="button" className={styles.btnText} onClick={handleLogout}>
+          로그아웃
+        </button>
       </div>
     </header>
   );
