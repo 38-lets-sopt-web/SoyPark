@@ -7,6 +7,7 @@ export const wrapper = style({
   alignItems: "center",
   justifyContent: "center",
   width: "100%",
+  marginTop: "4rem",
 });
 
 export const editArea = style({

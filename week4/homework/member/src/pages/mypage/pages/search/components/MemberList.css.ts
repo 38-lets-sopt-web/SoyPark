@@ -5,13 +5,14 @@ export const wrapper = style({
   flexDirection: "column",
   gap: "2rem",
   width: "100%",
-  alignSelf: "flex-start",
   padding: "3rem",
+  alignItems: "center",
 });
 
 export const title = style({
   fontSize: "1.9rem",
   fontWeight: "bold",
+  alignSelf: "flex-start",
 });
 
 export const cardContainer = style({

@@ -8,7 +8,7 @@ export const wrapper = style({
   alignItems: "center",
   justifyContent: "center",
   width: "100%",
-  marginTop: "4rem;",
+  marginTop: "4rem",
 });
 
 export const searchSection = style({
@@ -26,6 +26,7 @@ export const result = style({
   gap: "2rem",
   alignSelf: "flex-start",
   justifyContent: "center",
+  width: "100%",
 });
 
 export const headingText = style({
@@ -36,7 +37,7 @@ export const headingText = style({
 export const resultContent = style({
   display: "flex",
   backgroundColor: vars.color.white,
-  width: "60rem",
+  width: "100%",
   height: "20rem",
   borderRadius: "8px",
   padding: "1rem",
