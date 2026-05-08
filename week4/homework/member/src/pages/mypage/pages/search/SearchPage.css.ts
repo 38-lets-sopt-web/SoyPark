@@ -38,7 +38,6 @@ export const resultContent = style({
   display: "flex",
   backgroundColor: vars.color.white,
   width: "100%",
-  height: "20rem",
   borderRadius: "8px",
   padding: "1rem",
 });
