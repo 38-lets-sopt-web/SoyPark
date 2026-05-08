@@ -2,7 +2,6 @@ import MyCard from "@/pages/mypage/components/myCard/MyCard";
 import type { ResponseUserInfo } from "@/pages/mypage/types/mypage";
 import { getUserInfo } from "@apis/getUserInfo";
 import Title from "@components/title/Title";
-import { LOCAL_STORAGE_KEY } from "@constants/key";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as styles from "./MemberDetailPage.css";
