@@ -16,10 +16,10 @@ export type PatchProfile = {
 };
 
 export type ResponseUsers = BaseResponse<{
-  users: users[];
+  users: Users[];
 }>;
 
-type users = {
+export type Users = {
   id: number;
   name: string;
   part: string;
