@@ -3,9 +3,11 @@ import * as styles from "./MemberList.css";
 import UserCard from "@/pages/mypage/pages/search/components/UserCards";
 import { getUsers } from "@/pages/mypage/apis/mypage";
 import type { Users } from "@/pages/mypage/types/mypage";
+import { useNavigate } from "react-router-dom";
 
 const MemberList = () => {
   const [memberList, setMemberList] = useState<Users[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -23,13 +25,22 @@ const MemberList = () => {
     fetchMembers();
   }, []);
 
+  const handleGotoDetail = (id: number) => {
+    navigate(`/mypage/search/${id}`);
+  };
+
   return (
     <section className={styles.wrapper}>
       <h1 className={styles.title}>전체 멤버 리스트</h1>
       <div className={styles.cardContainer}>
         {memberList.length > 0 ? (
           memberList.map((data) => (
-            <UserCard key={data.id} name={data.name} part={data.part} />
+            <UserCard
+              key={data.id}
+              name={data.name}
+              part={data.part}
+              onClick={() => handleGotoDetail(data.id)}
+            />
           ))
         ) : (
           <p>멤버가 없습니다.</p>

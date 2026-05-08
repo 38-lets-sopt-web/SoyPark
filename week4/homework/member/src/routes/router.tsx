@@ -4,6 +4,7 @@ import LoginPage from "@pages/login/LoginPage.tsx";
 import SignupPage from "@pages/signup/SignupPage";
 import MyPage from "@pages/mypage/MyPage";
 import SearchPage from "@/pages/mypage/pages/search/SearchPage";
+import MemberDetailPage from "@/pages/mypage/pages/MemberDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
       { path: "signup", element: <SignupPage /> },
       { path: "mypage", element: <MyPage /> },
       { path: "mypage/search", element: <SearchPage /> },
+      { path: `mypage/search/:id`, element: <MemberDetailPage /> },
     ],
   },
 ]);
