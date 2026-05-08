@@ -8,6 +8,7 @@ import { useState } from "react";
 
 import MyCard from "@/pages/mypage/components/myCard/MyCard";
 import { getUserInfo } from "@apis/getUserInfo";
+import MemberList from "@/pages/mypage/pages/search/components/MemberList";
 
 const SearchPage = () => {
   const [searchId, setSearchId] = useState("");
@@ -31,7 +32,7 @@ const SearchPage = () => {
 
   return (
     <div className={styles.wrapper}>
-      <Title title="내 정보" />
+      <Title title="회원 조회" />
       <section className={styles.searchSection}>
         <TextField
           label="회원ID"
@@ -61,6 +62,7 @@ const SearchPage = () => {
           </div>
         </div>
       </section>
+      <MemberList />
     </div>
   );
 };
