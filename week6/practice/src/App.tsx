@@ -7,7 +7,6 @@ const getUserProfile = async (userId: number) => {
   const response = await axios.get(
     `${import.meta.env.VITE_API_URL}/users/${userId}`,
   );
-  console.log(response.data.data);
   return response.data.data;
 };
 
