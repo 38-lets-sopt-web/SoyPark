@@ -2,10 +2,10 @@ import ListCard from "./components/card/ListCard";
 
 const MovieListPage = () => {
   return (
-    <div className="flex min-h-screen flex-col gap-10 px-40 py-10">
+    <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-5 px-6 py-10 sm:px-10 lg:px-12">
       <h1 className="text-3xl font-bold">Movie Explorer</h1>
       <section>별점 필터링</section>
-      <section className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="grid grid-cols-[repeat(auto-fit,minmax(220px,260px))] gap-6">
         <ListCard
           title="The Shawshank Redemption"
           description="Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency."
