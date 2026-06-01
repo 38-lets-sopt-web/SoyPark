@@ -8,7 +8,10 @@ const RatingSection = () => {
       <p className="text-sm font-semibold text-text-soft">0.5 ~ 10.0</p>
       <input
         className="h-12 w-full rounded-2xl border border-border bg-white px-4 outline-none transition focus:border-black"
-        type="text"
+        type="number"
+        min="0.5"
+        max="10.0"
+        step="0.5"
       />
       <div className="flex flex-wrap gap-2">
         <Button>별점 저장</Button>
