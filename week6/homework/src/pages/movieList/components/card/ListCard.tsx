@@ -3,6 +3,7 @@ interface ListCardProps {
   description: string;
   imageUrl: string | null;
   releaseDate: string;
+  onClick?: () => void;
 }
 
 const ListCard = ({
@@ -10,9 +11,14 @@ const ListCard = ({
   description,
   imageUrl,
   releaseDate,
+  onClick,
 }: ListCardProps) => {
   return (
-    <article className="w-full bg-white overflow-hidden rounded-(--radius-card) border border-border bg-surface shadow-card transition-transform duration-300 hover:scale-[1.03]">
+    <article
+      className="w-full cursor-pointer overflow-hidden rounded-(--radius-card) border border-border bg-white bg-surface shadow-card transition-transform duration-300 hover:scale-[1.03]"
+      onClick={onClick}
+      role={onClick ? "button" : undefined}
+    >
       <div className="aspect-3/4 overflow-hidden">
         {imageUrl ? (
           <img

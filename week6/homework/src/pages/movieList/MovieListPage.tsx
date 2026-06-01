@@ -1,12 +1,19 @@
 import { getImageUrl } from "@utils/getTmdbImageUrl";
 import { useMovieListQuery } from "./apis/getMovieList";
 import ListCard from "./components/card/ListCard";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_PATH } from "@constants/path";
 
 const MovieListPage = () => {
+  const navigate = useNavigate();
   const { data: movieList, isPending, isError } = useMovieListQuery();
 
   if (isPending) return <div>로딩중</div>;
   if (isError) return <div>에러 발생</div>;
+
+  const handleCardClick = (movieId: number) => {
+    navigate(ROUTE_PATH.movieDetail(movieId));
+  };
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-5 px-6 py-10 sm:px-10 lg:px-12">
@@ -20,6 +27,7 @@ const MovieListPage = () => {
             description={movie.overview}
             imageUrl={getImageUrl(movie.poster_path)}
             releaseDate={movie.release_date}
+            onClick={() => handleCardClick(movie.id)}
           />
         ))}
       </section>
