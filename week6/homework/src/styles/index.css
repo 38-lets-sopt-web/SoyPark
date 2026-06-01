@@ -4,7 +4,6 @@
 @theme {
     --font-sans: 'Pretendard Variable', Pretendard, system-ui, sans-serif;
 
-    --color-background-muted: #eceae7;
     --color-surface-soft: #f8f7f5;
     --color-surface-strong: #e7e5e4;
 
@@ -26,7 +25,7 @@
 
 :root {
     color: black;
-    background-color: var(--color-background-muted);
+    background-color: var(--color-surface-soft);
     font-family: var(--font-sans);
 }
 
@@ -36,7 +35,7 @@
     }
 
     body {
-        @apply bg-background-muted text-text antialiased;
+        @apply bg-surface-soft text-text antialiased;
         min-height: 100vh;
     }
 
