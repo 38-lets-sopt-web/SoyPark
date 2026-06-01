@@ -5,7 +5,6 @@
     --font-sans: 'Pretendard Variable', Pretendard, system-ui, sans-serif;
 
     --color-background-muted: #eceae7;
-    --color-white: #ffffff;
     --color-surface-soft: #f8f7f5;
     --color-surface-strong: #e7e5e4;
 
@@ -26,7 +25,7 @@
 }
 
 :root {
-    color: var(--color-text);
+    color: black;
     background-color: var(--color-background-muted);
     font-family: var(--font-sans);
 }
