@@ -7,7 +7,7 @@ const RatingSection = () => {
       <h2 className={sectionTitleClassName}>별점 남기기</h2>
       <p className="text-sm font-semibold text-text-soft">0.5 ~ 10.0</p>
       <input
-        className="h-12 w-full rounded-2xl border border-border bg-white px-4 text-text outline-none transition focus:border-black"
+        className="h-12 w-full rounded-2xl border border-border bg-white px-4 outline-none transition focus:border-black"
         type="text"
       />
       <div className="flex flex-wrap gap-2">
