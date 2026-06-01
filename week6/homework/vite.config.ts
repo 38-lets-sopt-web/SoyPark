@@ -7,6 +7,7 @@ import path from "path";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
+    dedupe: ["react", "react-dom"],
     alias: {
       "@": path.resolve(__dirname, "./src"),
       "@pages": path.resolve(__dirname, "./src/pages"),
@@ -20,5 +21,8 @@ export default defineConfig({
       "@constants": path.resolve(__dirname, "./src/shared/constants"),
       "@shared": path.resolve(__dirname, "./src/shared"),
     },
+  },
+  optimizeDeps: {
+    exclude: ["@tanstack/react-query-devtools"],
   },
 });
