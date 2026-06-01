@@ -35,6 +35,12 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error: AxiosError) => {
+    if (import.meta.env.DEV) {
+      console.error("[API Error]", {
+        message: error.message,
+      });
+    }
+
     return Promise.reject(error);
   },
 );
