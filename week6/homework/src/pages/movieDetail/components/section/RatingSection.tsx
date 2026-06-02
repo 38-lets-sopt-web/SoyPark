@@ -1,8 +1,9 @@
 import { sectionTitleClassName } from "@pages/movieList/constants/commonStyles";
 import Button from "../button/Button";
 import { useState } from "react";
-import { useMovieRatingMutation } from "@pages/movieDetail/apis/mutaion/postRating";
+import { useMovieRatingMutation } from "@pages/movieDetail/apis/mutaions/postRating";
 import { ERROR_MESSAGE } from "@pages/movieDetail/constants/errorMessage";
+import { useMovieRatingDeleteMutation } from "@pages/movieDetail/apis/mutaions/deleteRating";
 
 interface RatingSectionProps {
   movieId: number;
@@ -23,7 +24,7 @@ const RatingSection = ({
 
   const { mutate: saveRating, isPending: isSaving } = useMovieRatingMutation();
   const { mutate: deleteRating, isPending: isDeleting } =
-    useMovieRatingMutation();
+    useMovieRatingDeleteMutation();
 
   const validateRating = (value: string) => {
     const rating = Number(value);
@@ -74,12 +75,18 @@ const RatingSection = ({
       return;
     }
 
-    deleteRating(requestData, {
-      onSuccess: (response) => {
-        setSuccessMessage(response.status_message);
-        setRatingInput("");
+    deleteRating(
+      {
+        movie_id: movieId,
+        guest_session_id: guestSessionId,
       },
-    });
+      {
+        onSuccess: (response) => {
+          setSuccessMessage(response.status_message);
+          setRatingInput("");
+        },
+      },
+    );
   };
 
   return (
