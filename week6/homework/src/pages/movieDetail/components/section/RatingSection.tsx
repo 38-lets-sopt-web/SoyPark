@@ -2,6 +2,7 @@ import { sectionTitleClassName } from "@pages/movieList/constants/commonStyles";
 import Button from "../button/Button";
 import { useState } from "react";
 import { useMovieRatingMutation } from "@pages/movieDetail/apis/mutaion/postRating";
+import { ERROR_MESSAGE } from "@pages/movieDetail/constants/errorMessage";
 
 interface RatingSectionProps {
   movieId: number;
@@ -21,19 +22,27 @@ const RatingSection = ({
   const [errorMessage, setErrorMessage] = useState("");
 
   const { mutate: saveRating, isPending: isSaving } = useMovieRatingMutation();
+  const { mutate: deleteRating, isPending: isDeleting } =
+    useMovieRatingMutation();
 
   const validateRating = (value: string) => {
     const rating = Number(value);
 
     if (Number.isNaN(rating)) {
-      return "숫자를 입력해주세요.";
+      return ERROR_MESSAGE.IS_NOT_A_NUMBER;
     }
 
     if (rating < 0.5 || rating > 10) {
-      return "별점은 0.5에서 10.0 사이여야 합니다.";
+      return ERROR_MESSAGE.RATING_OUT_OF_BOUNDS;
     }
 
     return null;
+  };
+
+  const requestData = {
+    movie_id: movieId,
+    value: Number(ratingInput),
+    guest_session_id: guestSessionId,
   };
 
   const handleSave = () => {
@@ -47,18 +56,30 @@ const RatingSection = ({
       return;
     }
 
-    saveRating(
-      {
-        movie_id: movieId,
-        value: Number(ratingInput),
-        guest_session_id: guestSessionId,
+    saveRating(requestData, {
+      onSuccess: (response) => {
+        setSuccessMessage(response.status_message);
       },
-      {
-        onSuccess: (response) => {
-          setSuccessMessage(response.status_message);
-        },
+    });
+  };
+
+  const handleDelete = () => {
+    setSuccessMessage("");
+    setErrorMessage("");
+
+    const validationMessage = validateRating(ratingInput);
+
+    if (validationMessage) {
+      setErrorMessage(validationMessage);
+      return;
+    }
+
+    deleteRating(requestData, {
+      onSuccess: (response) => {
+        setSuccessMessage(response.status_message);
+        setRatingInput("");
       },
-    );
+    });
   };
 
   return (
@@ -74,10 +95,16 @@ const RatingSection = ({
         onChange={(e) => setRatingInput(e.target.value)}
       />
       <div className="flex flex-wrap gap-2">
-        <Button onClick={handleSave} disabled={isSaving}>
+        <Button onClick={handleSave} disabled={isSaving || isDeleting}>
           {isSaving ? "저장 중..." : "별점 저장"}
         </Button>
-        <Button variant="secondary">별점 삭제하기</Button>
+        <Button
+          variant="secondary"
+          onClick={handleDelete}
+          disabled={isDeleting || isSaving}
+        >
+          {isDeleting ? "삭제 중..." : "별점 삭제하기"}
+        </Button>
       </div>
 
       {errorMessage ? (
