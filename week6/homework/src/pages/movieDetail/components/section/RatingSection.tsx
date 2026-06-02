@@ -6,10 +6,17 @@ import { useMovieRatingMutation } from "@pages/movieDetail/apis/mutaion/postRati
 interface RatingSectionProps {
   movieId: number;
   guestSessionId: string;
+  initialRating?: number;
 }
 
-const RatingSection = ({ movieId, guestSessionId }: RatingSectionProps) => {
-  const [ratingInput, setRatingInput] = useState("");
+const RatingSection = ({
+  movieId,
+  guestSessionId,
+  initialRating,
+}: RatingSectionProps) => {
+  const [ratingInput, setRatingInput] = useState(
+    initialRating !== undefined ? String(initialRating) : "",
+  );
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -39,12 +46,6 @@ const RatingSection = ({ movieId, guestSessionId }: RatingSectionProps) => {
       setErrorMessage(validationMessage);
       return;
     }
-
-    console.log("Saving rating:", {
-      movie_id: movieId,
-      value: Number(ratingInput),
-      guest_session_id: guestSessionId,
-    });
 
     saveRating(
       {

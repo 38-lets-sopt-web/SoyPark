@@ -24,7 +24,7 @@ const MovieDetailPage = () => {
   const { data: guestSessionId } = useGuestSessionQuery(); // 게스트 세션 조회
   const { data: ratedMovies } = useMovieRatingQuery(guestSessionId ?? ""); // 사용자의 평점 조회
 
-  // 영화의 평점이 존재하는지 확인
+  // 사용자가 이미 평점을 남긴 영화인지 확인하여 초기값으로 설정
   const initialRating = ratedMovies?.results.find(
     (movie) => movie.id === movieId,
   )?.rating;
@@ -107,7 +107,14 @@ const MovieDetailPage = () => {
 
       <section className="grid gap-6 grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)]">
         <BasicInfoSection items={basicInfo} />
-        <RatingSection initialRating={initialRating} />
+        {guestSessionId ? (
+          <RatingSection
+            key={`${movieId}-${initialRating ?? "empty"}`}
+            movieId={movieId}
+            guestSessionId={guestSessionId}
+            initialRating={initialRating}
+          />
+        ) : null}
       </section>
     </main>
   );
