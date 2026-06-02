@@ -1,7 +1,11 @@
 import { sectionTitleClassName } from "@pages/movieList/constants/commonStyles";
 import Button from "../button/Button";
 
-const RatingSection = () => {
+interface RatingSectionProps {
+  initialRating?: number;
+}
+
+const RatingSection = ({ initialRating }: RatingSectionProps) => {
   return (
     <div className="flex flex-col gap-3 rounded-(--radius-card) border border-border bg-white px-6 py-6 shadow-card lg:px-8">
       <h2 className={sectionTitleClassName}>별점 남기기</h2>
@@ -12,6 +16,7 @@ const RatingSection = () => {
         min="0.5"
         max="10.0"
         step="0.5"
+        defaultValue={initialRating}
       />
       <div className="flex flex-wrap gap-2">
         <Button>별점 저장</Button>

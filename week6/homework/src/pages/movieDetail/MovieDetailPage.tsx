@@ -6,8 +6,10 @@ import BasicInfoSection from "./components/section/BasicInfoSection";
 import DetailStatCard from "./components/card/DetailStatCard";
 import RatingSection from "./components/section/RatingSection";
 import { sectionTitleClassName } from "@pages/movieList/constants/commonStyles";
-import { useMovieDetailQuery } from "./apis/getMovieDetail";
+import { useMovieDetailQuery } from "./apis/queries/getMovieDetail";
 import { getMovieDetailViewData } from "./utils/movieDetailViewMapper";
+import { useMovieRatingQuery } from "./apis/queries/getRating";
+import { useGuestSessionQuery } from "@apis/getAuth";
 
 const MovieDetailPage = () => {
   const navigate = useNavigate();
@@ -18,7 +20,14 @@ const MovieDetailPage = () => {
     data: movieDetail,
     isPending,
     isError,
-  } = useMovieDetailQuery(movieId);
+  } = useMovieDetailQuery(movieId); // 영화 상세 정보 조회
+  const { data: guestSessionId } = useGuestSessionQuery(); // 게스트 세션 조회
+  const { data: ratedMovies } = useMovieRatingQuery(guestSessionId ?? ""); // 사용자의 평점 조회
+
+  // 영화의 평점이 존재하는지 확인
+  const initialRating = ratedMovies?.results.find(
+    (movie) => movie.id === movieId,
+  )?.rating;
 
   if (isPending) return <div>로딩중</div>;
   if (isError || !movieDetail) return <div>에러 발생</div>;
@@ -98,7 +107,7 @@ const MovieDetailPage = () => {
 
       <section className="grid gap-6 grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)]">
         <BasicInfoSection items={basicInfo} />
-        <RatingSection />
+        <RatingSection initialRating={initialRating} />
       </section>
     </main>
   );
