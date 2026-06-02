@@ -4,16 +4,41 @@ import ListCard from "./components/card/ListCard";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATH } from "@constants/path";
 import RatingFilter from "./components/ratingFilter/RatingFilter";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const MovieListPage = () => {
   const [selectedRating, setSelectedRating] = useState("all");
   const navigate = useNavigate();
+  const observerRef = useRef<HTMLDivElement>(null);
+
   const {
     data: movieList,
     isPending,
     isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
   } = useMovieListQuery(selectedRating);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      {
+        rootMargin: "100px",
+        threshold: 0,
+      },
+    );
+
+    if (observerRef.current) observer.observe(observerRef.current);
+
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  const movies = movieList?.pages.flatMap((page) => page.results) ?? [];
 
   if (isPending) return <div>로딩중</div>;
   if (isError) return <div>에러 발생</div>;
@@ -32,8 +57,8 @@ const MovieListPage = () => {
       <section>
         <RatingFilter value={selectedRating} onChange={handleRatingChange} />
       </section>
-      <section className="grid grid-cols-[repeat(auto-fit,minmax(220px,260px))] gap-6">
-        {movieList?.results.map((movie) => (
+      <section className="grid grid-cols-[repeat(auto-fill,minmax(220px,260px))] gap-6">
+        {movies.map((movie) => (
           <ListCard
             key={movie.id}
             title={movie.title}
@@ -44,6 +69,8 @@ const MovieListPage = () => {
           />
         ))}
       </section>
+
+      <div ref={observerRef}>{!hasNextPage && <div>끝.</div>}</div>
     </div>
   );
 };
