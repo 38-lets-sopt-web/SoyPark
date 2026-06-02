@@ -9,7 +9,11 @@ import { useState } from "react";
 const MovieListPage = () => {
   const [selectedRating, setSelectedRating] = useState("all");
   const navigate = useNavigate();
-  const { data: movieList, isPending, isError } = useMovieListQuery();
+  const {
+    data: movieList,
+    isPending,
+    isError,
+  } = useMovieListQuery(selectedRating);
 
   if (isPending) return <div>로딩중</div>;
   if (isError) return <div>에러 발생</div>;
