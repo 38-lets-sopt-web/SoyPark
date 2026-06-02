@@ -1,11 +1,65 @@
 import { sectionTitleClassName } from "@pages/movieList/constants/commonStyles";
 import Button from "../button/Button";
+import { useState } from "react";
+import { useMovieRatingMutation } from "@pages/movieDetail/apis/mutaion/postRating";
 
 interface RatingSectionProps {
-  initialRating?: number;
+  movieId: number;
+  guestSessionId: string;
 }
 
-const RatingSection = ({ initialRating }: RatingSectionProps) => {
+const RatingSection = ({ movieId, guestSessionId }: RatingSectionProps) => {
+  const [ratingInput, setRatingInput] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const { mutate: saveRating, isPending: isSaving } = useMovieRatingMutation();
+
+  const validateRating = (value: string) => {
+    const rating = Number(value);
+
+    if (Number.isNaN(rating)) {
+      return "숫자를 입력해주세요.";
+    }
+
+    if (rating < 0.5 || rating > 10) {
+      return "별점은 0.5에서 10.0 사이여야 합니다.";
+    }
+
+    return null;
+  };
+
+  const handleSave = () => {
+    setSuccessMessage("");
+    setErrorMessage("");
+
+    const validationMessage = validateRating(ratingInput);
+
+    if (validationMessage) {
+      setErrorMessage(validationMessage);
+      return;
+    }
+
+    console.log("Saving rating:", {
+      movie_id: movieId,
+      value: Number(ratingInput),
+      guest_session_id: guestSessionId,
+    });
+
+    saveRating(
+      {
+        movie_id: movieId,
+        value: Number(ratingInput),
+        guest_session_id: guestSessionId,
+      },
+      {
+        onSuccess: (response) => {
+          setSuccessMessage(response.status_message);
+        },
+      },
+    );
+  };
+
   return (
     <div className="flex flex-col gap-3 rounded-(--radius-card) border border-border bg-white px-6 py-6 shadow-card lg:px-8">
       <h2 className={sectionTitleClassName}>별점 남기기</h2>
@@ -15,13 +69,23 @@ const RatingSection = ({ initialRating }: RatingSectionProps) => {
         type="number"
         min="0.5"
         max="10.0"
-        step="0.5"
-        defaultValue={initialRating}
+        value={ratingInput}
+        onChange={(e) => setRatingInput(e.target.value)}
       />
       <div className="flex flex-wrap gap-2">
-        <Button>별점 저장</Button>
+        <Button onClick={handleSave} disabled={isSaving}>
+          {isSaving ? "저장 중..." : "별점 저장"}
+        </Button>
         <Button variant="secondary">별점 삭제하기</Button>
       </div>
+
+      {errorMessage ? (
+        <p className="text-sm font-medium text-red-500">{errorMessage}</p>
+      ) : null}
+
+      {successMessage ? (
+        <p className="text-sm font-medium text-accent">{successMessage}</p>
+      ) : null}
     </div>
   );
 };

@@ -12,9 +12,20 @@ export interface RatedMovieListResponse {
   total_results: number;
 }
 
-// 별점 등록/삭제
+// 별점 등록/삭제 응답
 export interface MovieRatingResponse {
   success: boolean;
   status_code: number;
   status_message: string;
+}
+
+export interface PostMovieRatingParams {
+  movie_id: number;
+  value: number;
+  guest_session_id: string;
+}
+
+export interface DeleteMovieRatingParams {
+  movie_id: number;
+  guest_session_id: string;
 }
