@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 
 const apiKey = import.meta.env.VITE_API_KEY;
+const defaultLanguage = "ko-KR";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -14,6 +15,7 @@ axiosInstance.interceptors.request.use((config) => {
   config.params = {
     ...config.params,
     api_key: config.params?.api_key ?? apiKey,
+    language: config.params?.language ?? defaultLanguage,
   };
 
   return config;
