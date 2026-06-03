@@ -1,0 +1,100 @@
+.modal-overlay {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: auto;
+}
+
+dialog::backdrop {
+    background-color: var(--color-backdrop); 
+}
+
+dialog:not([open]) {
+    display: none;
+}
+
+.modal-container {
+    background: var(--color-white);
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 45rem;
+    max-width: 90%;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.modal-header h2 {
+    font-size: 2rem;
+    font-weight: var(--weight-bold);
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: var(--color-black);
+    font-size: 2rem;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.input-group input {
+    flex: none;
+}
+
+.input-group select {
+    height: 4rem;
+}
+
+/* 2열 배치  */
+.input-row {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.input-row .input-group {
+    flex: 1;
+}
+
+#modal-btn-add {
+    width: 8rem;
+    height: 4rem;
+}
+
+/* 상세 모달 */
+.detail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.detail-list li {
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.detail-label {
+    font-weight: var(--weight-bold);
+    color: var(--color-primary);
+    width: 8rem;
+    flex-shrink: 0;
+}
+
+.detail-value {
+    flex: 1;
+}
